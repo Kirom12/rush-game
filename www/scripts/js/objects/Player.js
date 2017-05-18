@@ -37,8 +37,6 @@ class Player
 			current : false
 		}
 
-		console.log(_Buttons);
-
 		this.Buttons = _Buttons;
 	}
 
@@ -54,11 +52,6 @@ class Player
 		if (this.Buttons.right.isDown)
 		{
 			this.Sprite.body.velocity.x += this.speed;
-		}
-
-		if (this.Buttons.up.isDown)
-		{
-			console.log(this.Sprite.body.onFloor());
 		}
 
 		//If player is on flood and press a key
