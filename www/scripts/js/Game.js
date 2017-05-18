@@ -11,7 +11,7 @@ class Game
 		Game.MainData =
 		{
 			divName : 'game',
-			width : 1200,
+			width : 1280,
 			height : 800
 		};
 
@@ -26,7 +26,8 @@ class Game
 
 	static preload()
 	{
-
+		Game.Main.load.tilemap('map', 'assets/maps/test-map.json', null, Phaser.Tilemap.TILED_JSON);
+		Game.Main.load.image('tileset', 'assets/tilesets/test-tileset.png');
 	}
 
 	static create()

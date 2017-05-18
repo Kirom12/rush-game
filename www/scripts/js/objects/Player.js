@@ -11,9 +11,9 @@ class Player
 
 		this.speed = 200;
 
-		let bmd = Game.Main.add.bitmapData(50, 50);
+		let bmd = Game.Main.add.bitmapData(30, 30);
 		bmd.ctx.beginPath();
-		bmd.ctx.rect(0, 0, 50, 50);
+		bmd.ctx.rect(0, 0, 30, 30);
 		bmd.ctx.fillStyle = 'white';
 		bmd.ctx.fill();
 
@@ -21,7 +21,11 @@ class Player
 		Game.Main.physics.enable(this.Sprite, Phaser.Physics.ARCADE);
 
 		this.Sprite.anchor.setTo(0.5);
-
+		this.Sprite.body.collideWorldBounds = true;
+		this.Sprite.body.bounce.y = 0;
+        this.Sprite.body.bounce.x = 0;
+        this.Sprite.body.maxVelocity = 500;
+		this.Sprite.body.gravity.y = 200;
 
 		this.Buttons =
 		{

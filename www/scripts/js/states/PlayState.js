@@ -3,27 +3,32 @@
  * */
 class PlayState
 {
-    constructor()
-    {
+	constructor()
+	{
 
-    }
+	}
 
-    preload()
-    {
+	preload()
+	{
 
-    }
+	}
 
-    create()
-    {
-        Game.Main.physics.startSystem(Phaser.Physics.ARCADE);
+	create()
+	{
+		Log.print("playState - create");
 
-        this.Player = new Player();
+		Game.Main.physics.startSystem(Phaser.Physics.ARCADE);
+		Game.Main.world.setBounds(0,0, 1280, 800);
+		Game.Main.physics.arcade.gravity.y = 200;
 
-        console.log("playState - create");
-    }
+		Map.create();
 
-    update()
-    {
-        this.Player.update();
-    }
+		this.Player = new Player();
+
+	}
+
+	update()
+	{
+		this.Player.update();
+	}
 }
