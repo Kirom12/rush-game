@@ -26,8 +26,8 @@ class Game
 
 	static preload()
 	{
-		Game.Main.load.tilemap('map', 'assets/maps/test-map.json', null, Phaser.Tilemap.TILED_JSON);
-		Game.Main.load.image('tileset', 'assets/tilesets/test-tileset.png');
+		Game.Main.load.tilemap('test-map', 'assets/maps/test-map.json', null, Phaser.Tilemap.TILED_JSON);
+		Game.Main.load.image('test-tileset', 'assets/tilesets/test-tileset.png');
 	}
 
 	static create()
