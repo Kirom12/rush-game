@@ -11,11 +11,10 @@ class Player
 
 		this.speed = 500;
 
-		let bmd = Game.Main.add.bitmapData(30, 30);
-		bmd.ctx.beginPath();
-		bmd.ctx.rect(0, 0, 30, 30);
-		bmd.ctx.fillStyle = _color;
-		bmd.ctx.fill();
+		//Weapon
+		this.Weapon = new Gun();
+
+		let bmd = Graphics.drawRect(30, 30, _color);
 
 		this.Sprite = Game.Main.add.sprite(this.x, this.y, bmd);
 		Game.Main.physics.enable(this.Sprite, Phaser.Physics.ARCADE);
@@ -23,10 +22,12 @@ class Player
 		this.Sprite.anchor.setTo(0.5);
 		// zthis.Sprite.body.collideWorldBounds = true;
 		this.Sprite.body.bounce.y = 0;
-        this.Sprite.body.bounce.x = 0;
-        this.Sprite.body.maxVelocity = 500;
-		//this.Sprite.body.gravity.y = 2000;
+		this.Sprite.body.bounce.x = 0;
+		this.Sprite.body.maxVelocity = 500;
+		this.Sprite.body.gravity.y = 2000;
 
+		this.Buttons = _Buttons;
+		
 		this.Jump = {
 			speed : 800,
 			holdSpeed : 500,
@@ -37,23 +38,38 @@ class Player
 			current : false
 		}
 
-		this.Buttons = _Buttons;
+		this.Weapon.Weapon.trackSprite(this.Sprite, 0, 0, false);
+
 	}
 
 	update()
 	{
+		this.Weapon.update();
+
+		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_floor);
+		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_wall);
+
 		this.Sprite.body.velocity.x = 0;
 
-		//Movement
+		//MOVEMENTS
 		if (this.Buttons.left.isDown)
 		{
 			this.Sprite.body.velocity.x -= this.speed;
+			this.Weapon.Weapon.fireAngle = 180
 		}
 		if (this.Buttons.right.isDown)
 		{
 			this.Sprite.body.velocity.x += this.speed;
+			this.Weapon.Weapon.fireAngle = 0;
 		}
 
+		//FIRE
+		if (this.Buttons.fire.isDown)
+		{
+			this.Weapon.Weapon.fire();
+		}
+
+		//JUMP
 		//If player is on flood and press a key
 		if (this.Buttons.up.isDown && this.Sprite.body.onFloor() && Game.Main.time.now > this.Jump.time) {
 			this.Jump.holdTimer = 1;
@@ -73,5 +89,7 @@ class Player
 		} else {
 			this.Jump.holdTimer = 0;
 		}
+
+		Game.Main.world.wrap(this.Sprite, 0);
 	}
 }
