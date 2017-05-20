@@ -6,8 +6,6 @@ class PlayState
 	constructor()
 	{
 		this.Players = [];
-
-		this.Enemies = [];
 	}
 
 	preload()
@@ -22,6 +20,8 @@ class PlayState
 		Game.Main.physics.startSystem(Phaser.Physics.ARCADE);
 		Game.Main.world.setBounds(0,0, Game.MainData.width, Game.MainData.height);
 		Game.Main.physics.arcade.gravity.y = 0;
+
+		Map.construct();
 
 		Map.create();
 
@@ -42,20 +42,19 @@ class PlayState
 			left : Game.Main.input.keyboard.addKey(37),
 			fire : Game.Main.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
 		}));
-
-		this.Enemies.push(new Enemy());
 	}
 
 	update()
 	{
+		for (let Spawner of Map.Spawners)
+		{
+			Spawner.update();
+		}
+		
 		for (let Player of this.Players)
 		{
 			Player.update();
 		}
 
-		for (let Enemy of this.Enemies)
-		{
-			Enemy.update();
-		}
 	}
 }

@@ -11,20 +11,20 @@ class Player
 
 		this.speed = 500;
 
-		//Weapon
-		this.Weapon = new Gun();
-
 		let bmd = Graphics.drawRect(30, 30, _color);
 
 		this.Sprite = Game.Main.add.sprite(this.x, this.y, bmd);
 		Game.Main.physics.enable(this.Sprite, Phaser.Physics.ARCADE);
 
 		this.Sprite.anchor.setTo(0.5);
-		// zthis.Sprite.body.collideWorldBounds = true;
+		// this.Sprite.body.collideWorldBounds = true;
 		this.Sprite.body.bounce.y = 0;
 		this.Sprite.body.bounce.x = 0;
 		this.Sprite.body.maxVelocity = 500;
 		this.Sprite.body.gravity.y = 2000;
+
+		//Weapon
+		this.Weapon = new DoubleGun(this);
 
 		this.Buttons = _Buttons;
 		
@@ -37,10 +37,7 @@ class Player
 			holdTimer : 0,
 			current : false
 		}
-
-		this.Weapon.Weapon.trackSprite(this.Sprite, 0, 0, false);
-
-	}
+	};
 
 	update()
 	{
@@ -48,25 +45,33 @@ class Player
 
 		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_floor);
 		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_wall);
+		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_gate);
 
+		this.move();
+
+		Game.Main.world.wrap(this.Sprite, 0);
+	};
+
+	move()
+	{
 		this.Sprite.body.velocity.x = 0;
-
+		
 		//MOVEMENTS
 		if (this.Buttons.left.isDown)
 		{
 			this.Sprite.body.velocity.x -= this.speed;
-			this.Weapon.Weapon.fireAngle = 180
+			this.Weapon.setOrientation('W');
 		}
 		if (this.Buttons.right.isDown)
 		{
 			this.Sprite.body.velocity.x += this.speed;
-			this.Weapon.Weapon.fireAngle = 0;
+			this.Weapon.setOrientation('E');
 		}
 
 		//FIRE
 		if (this.Buttons.fire.isDown)
 		{
-			this.Weapon.Weapon.fire();
+			this.Weapon.fire();
 		}
 
 		//JUMP
@@ -90,6 +95,14 @@ class Player
 			this.Jump.holdTimer = 0;
 		}
 
-		Game.Main.world.wrap(this.Sprite, 0);
-	}
+		if (Game.Debug.god)
+		{
+			this.debug();
+		}
+	};
+
+	debug()
+	{
+		
+	};
 }
