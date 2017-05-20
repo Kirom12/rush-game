@@ -24,7 +24,13 @@ class Player
 		this.Sprite.body.gravity.y = 2000;
 
 		//Weapon
-		this.Weapon = new DoubleGun(this);
+		this.Weapon = new Gun(this);
+
+		this.WeaponData =
+		{
+			currentWeapon : 0,
+			switchHold : false
+		}
 
 		this.Buttons = _Buttons;
 		
@@ -103,6 +109,27 @@ class Player
 
 	debug()
 	{
-		
+		if (this.Buttons.down.isDown && !this.WeaponData.switchHold)
+		{
+			this.WeaponData.currentWeapon++;
+			this.WeaponData.switchHold = true;
+
+			switch(this.WeaponData.currentWeapon)
+			{
+				case 0:
+					this.Weapon = new Gun(this);
+					break;
+				case 1:
+					this.Weapon = new DoubleGun(this);
+					break;
+				default:
+					this.WeaponData.currentWeapon = -1;
+			}
+		}
+
+		if (this.Buttons.down.isUp)
+		{
+			this.WeaponData.switchHold = false;
+		}
 	};
 }
