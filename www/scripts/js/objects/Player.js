@@ -122,6 +122,15 @@ class Player
 				case 1:
 					this.Weapon = new DoubleGun(this);
 					break;
+				case 2:
+					this.Weapon = new AutomaticRifle(this);
+					break;
+				case 3:
+					this.Weapon = new Gatling(this);
+					break;
+				case 4:
+					this.Weapon = new GrenadeLauncher(this);
+					break;
 				default:
 					this.WeaponData.currentWeapon = -1;
 			}

@@ -23,6 +23,9 @@ class Map
 		Map.CurrentMap = Map.Maps.test_map;
 
 		Map.Spawners = [];
+		Map.Enemies = [];
+
+		Map.EnemiesGroup = Game.Main.add.group();
 	}
 
 	static create()

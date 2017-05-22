@@ -1,7 +1,7 @@
 /**
- * Class Gun
+ * Class GrenadeLauncher
  * */
-class Gun extends Weapon
+class GrenadeLauncher extends ExplosiveWeapon
 {
 	constructor(_Player)
 	{
@@ -13,8 +13,18 @@ class Gun extends Weapon
 		this.Weapon.trackSprite(_Player.Sprite, 0, 0, false);
 
 		this.Weapon.bulletSpeed = 800;
-		this.Weapon.fireRate = 300;
-		this.damage = 25;
+		this.Weapon.fireRate = 500;
+		this.damage = 100;
+		
+		this.Weapon.bulletGravity.y = 1000;
+
+		this.defaultAngle =
+		{
+			w : 195,
+			e : -15
+		};
+
+
 	};
 
 	update()

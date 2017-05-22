@@ -10,8 +10,6 @@ class Spawner
 		this.direction = _direction;
 		this.spawnTime = Phaser.Timer.SECOND * 2;
 
-		this.Enemies = [];
-
 		//Create spawers
 		let bmd = Graphics.drawRect(10, 10, 'white');
 		this.Sprite = Game.Main.add.sprite(this.x, this.y, bmd);
@@ -24,16 +22,13 @@ class Spawner
 
 	update()
 	{
-		for (let Enemy of this.Enemies)
-		{
-			Enemy.update();
-		}
+		
 	};
 
 	spawnEnemy()
 	{
-		this.Enemies.push(new Enemy(this.x, this.y, this.direction, this));
-		this.Enemies[this.Enemies.length-1].addToGroup();
+		Map.Enemies.push(new Enemy(this.x, this.y, this.direction, this));
+		Map.Enemies[Map.Enemies.length-1].addToGroup();
 	};
 
 	static staticConstructor()

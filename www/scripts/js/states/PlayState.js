@@ -31,7 +31,7 @@ class PlayState
 			down : Game.Main.input.keyboard.addKey(Phaser.Keyboard.S),
 			right : Game.Main.input.keyboard.addKey(Phaser.Keyboard.D),
 			left : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Q),
-			fire : Game.Main.input.keyboard.addKey(Phaser.Keyboard.H)
+			fire : Game.Main.input.keyboard.addKey(17)
 		}));
 
 		this.Players.push(new Player(600, 600, 'blue',
@@ -49,6 +49,11 @@ class PlayState
 		for (let Spawner of Map.Spawners)
 		{
 			Spawner.update();
+		}
+
+		for (let Enemy of Map.Enemies)
+		{
+			Enemy.update();
 		}
 		
 		for (let Player of this.Players)

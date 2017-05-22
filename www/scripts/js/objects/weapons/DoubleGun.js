@@ -22,6 +22,8 @@ class DoubleGun extends Weapon
 
 		this.Weapons[0].fireAngle = 0;
 		this.Weapons[1].fireAngle = 180;
+
+		this.damage = 25;
 	};
 
 	update()
@@ -33,13 +35,13 @@ class DoubleGun extends Weapon
 	{
 		if (_orientation === 'W')
 		{
-			this.Weapons[0].fireAngle = 180;
-			this.Weapons[1].fireAngle = 0;
+			this.Weapons[0].fireAngle = this.defaultAngle.w;
+			this.Weapons[1].fireAngle = this.defaultAngle.e;
 		}
 		else if (_orientation === 'E')
 		{
-			this.Weapons[0].fireAngle = 0;
-			this.Weapons[1].fireAngle = 180;
+			this.Weapons[0].fireAngle = this.defaultAngle.e;
+			this.Weapons[1].fireAngle = this.defaultAngle.w;
 		}
 		else
 		{

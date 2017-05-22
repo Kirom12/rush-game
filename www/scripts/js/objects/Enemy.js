@@ -7,8 +7,8 @@ class Enemy
 	{
 		this.Spawner = _Spawner;
 		this.initialSpeed = 300;
-
 		this.speed = (_initDirection)? this.initialSpeed : -this.initialSpeed;
+		this.life = 100;
 
 		let bmd = Graphics.drawRect(30, 30, _color);
 
@@ -21,14 +21,50 @@ class Enemy
 		this.Sprite.body.bounce.x = 0;
 		this.Sprite.body.maxVelocity = 500;
 		this.Sprite.body.gravity.y = 2000;
+
+		this.HitText = Game.Main.add.text(-100, -100, '-', {
+			font: '15px Arial',
+			fill: 'red',
+			align: 'center'
+		});
+
+		this.HitText.anchor.setTo(0.5);
+
 	};
 
 	addToGroup()
 	{
-		this.Sprite.arrayIndex = this.Spawner.Enemies.indexOf(this);
+		this.Sprite.arrayIndex = Map.Enemies.indexOf(this);
 
-		Spawner.Enemies.add(this.Sprite);
-	}
+		Map.EnemiesGroup.add(this.Sprite);
+	};
+
+	hit(_damage)
+	{
+		this.Sprite.tint = 0xff3333;
+
+		this.HitText.position.x = this.Sprite.position.x+(this.speed/20);
+		this.HitText.position.y = this.Sprite.position.y-this.Sprite.height/1.5;
+
+		Game.Main.time.events.add(Phaser.Timer.SECOND * 0.2, function()
+		{
+			this.Sprite.tint = 0xffffff;
+			this.HitText.position.x = 0;
+			this.HitText.position.y = 0;
+		}, this);
+
+
+		this.HitText.setText('-'+_damage);
+
+		//Take damage
+		this.life -= _damage;
+
+		//Check life
+		if (this.life <= 0)
+		{
+			this.destroy();
+		}
+	};
 
 	update()
 	{
@@ -51,12 +87,15 @@ class Enemy
 		this.destroy(_Sprite);
 	}
 
-	destroy(_Sprite)
+	destroy()
 	{
+		console.log('destroy');
+
 		//Kill sprite and remove from enemies array
-		_Sprite.kill();
-		let index = this.Spawner.Enemies.indexOf(this);
-		this.Spawner.Enemies.splice();
+		Map.EnemiesGroup.remove(this.Sprite);
+		this.Sprite.kill();
+		let index = Map.Enemies.indexOf(this);
+		Map.Enemies.splice();
 	}
 
 	move()

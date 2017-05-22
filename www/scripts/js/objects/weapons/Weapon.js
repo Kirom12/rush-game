@@ -5,8 +5,15 @@ class Weapon
 {
 	constructor(_Weapons)
 	{
+		this.damage = 100;
 		this.Weapons = _Weapons;
 		this.Weapon = this.Weapons[0];
+
+		this.defaultAngle =
+		{
+			w : 180,
+			e : 0
+		}
 
 		for (let Item of this.Weapons)
 		{
@@ -21,11 +28,8 @@ class Weapon
 		{
 			Game.Main.physics.arcade.collide(Item.bullets, Map.map.Layers.collision_wall, this.collideBulletWall, null, this);
 			Game.Main.physics.arcade.collide(Item.bullets, Map.map.Layers.collision_floor, this.collideBulletWall, null, this);
-			
-			for (let Sp of Map.Spawners)
-			{
-				Game.Main.physics.arcade.overlap(Item.bullets, Spawner.Enemies, this.collideEnemy, null, {this : this, _Spawner : Sp});
-			}
+
+			Game.Main.physics.arcade.collide(Item.bullets, Map.EnemiesGroup, this.collideEnemy, null, this);
 		}
 	};
 
@@ -34,11 +38,11 @@ class Weapon
 		_Bullet.kill();
 	};
 
-	collideEnemy(_Bullet, _Enemy, _Spawner)
+	collideEnemy(_Bullet, _Enemy)
 	{
 		_Bullet.kill();
 
-		this._Spawner.Enemies[_Enemy.arrayIndex].destroy(_Enemy);
+		Map.Enemies[_Enemy.arrayIndex].hit(this.damage);
 	};
 
 	fire()
@@ -55,11 +59,11 @@ class Weapon
 		{
 			if (_orientation === 'W')
 			{
-				Item.fireAngle = 180;
+				Item.fireAngle = this.defaultAngle.w;
 			} 
 			else if (_orientation === 'E')
 			{
-				Item.fireAngle = 0;
+				Item.fireAngle = this.defaultAngle.e;
 			}
 			else
 			{
