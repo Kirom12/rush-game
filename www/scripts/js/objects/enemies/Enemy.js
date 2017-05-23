@@ -3,14 +3,11 @@
  * */
 class Enemy
 {
-	constructor(_x = Game.MainData.width/2, _y = 50, _initDirection = Math.random() >= 0.5, _Spawner,_color = 'yellow')
+	constructor(_width = 30, _height = 30, _x = Game.MainData.width/2, _y = 50, _initDirection = Math.random() >= 0.5, _Spawner, _color = 'yellow')
 	{
 		this.Spawner = _Spawner;
-		this.initialSpeed = 300;
-		this.speed = (_initDirection)? this.initialSpeed : -this.initialSpeed;
-		this.life = 100;
 
-		let bmd = Graphics.drawRect(30, 30, _color);
+		let bmd = Graphics.drawRect(_width, _height, _color);
 
 		this.Sprite = Game.Main.add.sprite(_x, _y, bmd);
 		Game.Main.physics.enable(this.Sprite, Phaser.Physics.ARCADE);
@@ -82,20 +79,16 @@ class Enemy
 
 	collideEnemyGate(_Sprite)
 	{
-		console.log('gate');
-
 		this.destroy(_Sprite);
 	}
 
 	destroy()
 	{
-		console.log('destroy');
-
 		//Kill sprite and remove from enemies array
 		Map.EnemiesGroup.remove(this.Sprite);
 		this.Sprite.kill();
 		let index = Map.Enemies.indexOf(this);
-		Map.Enemies.splice();
+		//Map.Enemies.splice(index, 1);
 	}
 
 	move()

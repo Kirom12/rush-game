@@ -12,15 +12,31 @@ class Map
 			test_map : 
 			{
 				name : 'test-map',
-				Spawners :
+				MobsSpawners :
 				[
 					{x : Game.MainData.width*(1/3), y : 20, direction : 0},
 					{x : Game.MainData.width*(2/3), y : 20, direction : 1}
+				],
+				ItemsSpawners :
+				[
+					{x : 80, y : 150},
+					{x : Game.MainData.width-80, y : 150},
+					{x : 400, y : 250},
+					{x : Game.MainData.width-400, y : 250},
+					{x : 200, y : 470},
+					{x : Game.MainData.width-200, y : 470},
+					{x : 115, y : 730},
+					{x : Game.MainData.width-115, y : 730},
+					{x : 400, y : 610},
+					{x : Game.MainData.width-400, y : 610},
+					{x : 620, y : 365}
 				]
 			}
-		}
+		};
+
 
 		Map.CurrentMap = Map.Maps.test_map;
+		Map.currentWave = 1;
 
 		Map.Spawners = [];
 		Map.Enemies = [];
@@ -53,9 +69,11 @@ class Map
 
 		Spawner.staticConstructor();
 
-		for (let Spawn of Map.CurrentMap.Spawners)
+		for (let Spawn of Map.CurrentMap.MobsSpawners)
 		{
 			Map.Spawners.push(new Spawner(Spawn.x, Spawn.y, Spawn.direction));
 		}
+
+		ItemsController.init();
 	}
 }

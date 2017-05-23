@@ -6,12 +6,12 @@ class PlayState
 	constructor()
 	{
 		this.Players = [];
-	}
+	};
 
 	preload()
 	{
 
-	}
+	};
 
 	create()
 	{
@@ -20,6 +20,8 @@ class PlayState
 		Game.Main.physics.startSystem(Phaser.Physics.ARCADE);
 		Game.Main.world.setBounds(0,0, Game.MainData.width, Game.MainData.height);
 		Game.Main.physics.arcade.gravity.y = 0;
+
+		Game.nbPlayers = 2;
 
 		Map.construct();
 
@@ -42,7 +44,7 @@ class PlayState
 			left : Game.Main.input.keyboard.addKey(37),
 			fire : Game.Main.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
 		}));
-	}
+	};
 
 	update()
 	{
@@ -61,5 +63,14 @@ class PlayState
 			Player.update();
 		}
 
+		if (Game.Debug.mousePosition)
+		{
+			this.debug();
+		}
+	};
+
+	debug()
+	{
+		Debug.getMousePosition();
 	}
 }

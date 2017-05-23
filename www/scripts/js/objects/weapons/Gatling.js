@@ -21,7 +21,7 @@ class Gatling extends Weapon
 			Item.bulletAngleVariance = 8;
 		}
 
-		this.damage = 20;
+		this.damage = 25;
 	};
 
 	update()

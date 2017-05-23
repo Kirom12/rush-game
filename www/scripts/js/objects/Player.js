@@ -24,7 +24,7 @@ class Player
 		this.Sprite.body.gravity.y = 2000;
 
 		//Weapon
-		this.Weapon = new Gun(this);
+		this.Weapon = new Shotgun(this);
 
 		this.WeaponData =
 		{
@@ -130,6 +130,9 @@ class Player
 					break;
 				case 4:
 					this.Weapon = new GrenadeLauncher(this);
+					break;
+				case 5:
+					this.Weapon = new Shotgun(this);
 					break;
 				default:
 					this.WeaponData.currentWeapon = -1;

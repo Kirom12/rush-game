@@ -25,7 +25,8 @@ class Game
 
 		Game.Debug =
 		{
-			god : true
+			god : true,
+			mousePosition : false
 		}
 	};
 
