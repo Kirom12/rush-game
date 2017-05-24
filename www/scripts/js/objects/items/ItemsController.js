@@ -6,6 +6,7 @@ class ItemsController
 	static init()
 	{
 		ItemsController.Items = [];
+		ItemsController.ItemsGroup = Game.Main.add.group();
 
 		ItemsController.generateItems();
 	};
@@ -18,7 +19,9 @@ class ItemsController
 		{
 			random = Math.round(Math.random()*(Map.CurrentMap.ItemsSpawners.length-1));
 
-			ItemsController.Items.push(new Item(Map.CurrentMap.ItemsSpawners));
+			ItemsController.Items.push(new Item(Map.CurrentMap.ItemsSpawners[random].x, Map.CurrentMap.ItemsSpawners[random].y));
+
+			ItemsController.Items[ItemsController.Items.length-1].addToGroup();
 		}
 	};
 }

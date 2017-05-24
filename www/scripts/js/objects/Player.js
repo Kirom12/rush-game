@@ -24,7 +24,7 @@ class Player
 		this.Sprite.body.gravity.y = 2000;
 
 		//Weapon
-		this.Weapon = new Shotgun(this);
+		this.Weapon = new Gun(this);
 
 		this.WeaponData =
 		{
@@ -43,6 +43,8 @@ class Player
 			holdTimer : 0,
 			current : false
 		}
+
+		this.getNewItem = true;
 	};
 
 	update()
@@ -53,9 +55,36 @@ class Player
 		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_wall);
 		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_gate);
 
+		Game.Main.physics.arcade.overlap(this.Sprite, ItemsController.ItemsGroup, this.collideItem, null, this);
+
 		this.move();
 
 		Game.Main.world.wrap(this.Sprite, 0);
+	};
+
+	collideItem(_Player, _Item)
+	{
+		ItemsController.Items[_Item.arrayIndex].drag();
+
+		for (let Item of ItemsController.Items)
+		{
+			//console.log(Item.isTakable);
+
+			if (!Item.isTakable)
+			{
+				this.getNewItem = false;
+			}
+		}
+
+		if (this.getNewItem)
+		{
+			this.switchWeapon(ItemsController.Items[_Item.arrayIndex].ContentWeaponId);
+			Items[_Item.arrayIndex].destroy();
+		}
+
+		this.getNewItem = true;
+
+		//console.log(this.collideItemCheck);
 	};
 
 	move()
@@ -107,6 +136,33 @@ class Player
 		}
 	};
 
+	switchWeapon(_weaponId)
+	{
+		switch(_weaponId)
+		{
+			case 0:
+				this.Weapon = new Gun(this);
+				break;
+			case 1:
+				this.Weapon = new DoubleGun(this);
+				break;
+			case 2:
+				this.Weapon = new AutomaticRifle(this);
+				break;
+			case 3:
+				this.Weapon = new Gatling(this);
+				break;
+			case 4:
+				this.Weapon = new GrenadeLauncher(this);
+				break;
+			case 5:
+				this.Weapon = new Shotgun(this);
+				break;
+			default:
+				this.WeaponData.currentWeapon = -1;
+		}
+	};
+
 	debug()
 	{
 		if (this.Buttons.down.isDown && !this.WeaponData.switchHold)
@@ -114,29 +170,7 @@ class Player
 			this.WeaponData.currentWeapon++;
 			this.WeaponData.switchHold = true;
 
-			switch(this.WeaponData.currentWeapon)
-			{
-				case 0:
-					this.Weapon = new Gun(this);
-					break;
-				case 1:
-					this.Weapon = new DoubleGun(this);
-					break;
-				case 2:
-					this.Weapon = new AutomaticRifle(this);
-					break;
-				case 3:
-					this.Weapon = new Gatling(this);
-					break;
-				case 4:
-					this.Weapon = new GrenadeLauncher(this);
-					break;
-				case 5:
-					this.Weapon = new Shotgun(this);
-					break;
-				default:
-					this.WeaponData.currentWeapon = -1;
-			}
+			this.switchWeapon(this.WeaponData.currentWeapon);
 		}
 
 		if (this.Buttons.down.isUp)

@@ -14,6 +14,27 @@ class Item
 		this.Sprite.body.bounce.y = 0;
 		this.Sprite.body.bounce.x = 0;
 		this.Sprite.body.maxVelocity = 500;
-		this.Sprite.body.gravity.y = 2000;
-	}
+		this.Sprite.body.gravity.y = 1000;
+
+		this.ContentWeaponId = Random.rangeInt(0, 5, true);
+
+		this.isTakable = false;
+	};
+
+	addToGroup()
+	{
+		this.Sprite.arrayIndex = ItemsController.Items.indexOf(this);
+
+		ItemsController.ItemsGroup.add(this.Sprite);
+	};
+
+	update()
+	{
+		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_floor);
+	};
+
+	drag()
+	{
+		this.isTakable = true;
+	};
 }

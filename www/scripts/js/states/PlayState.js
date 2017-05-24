@@ -58,10 +58,17 @@ class PlayState
 			Enemy.update();
 		}
 		
+		//Need to update item before players
+		for (let Item of ItemsController.Items)
+		{
+			Item.update();
+		}
+
 		for (let Player of this.Players)
 		{
 			Player.update();
 		}
+
 
 		if (Game.Debug.mousePosition)
 		{

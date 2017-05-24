@@ -39,8 +39,8 @@ class Map
 		Map.currentWave = 1;
 
 		Map.Spawners = [];
+		
 		Map.Enemies = [];
-
 		Map.EnemiesGroup = Game.Main.add.group();
 	}
 
