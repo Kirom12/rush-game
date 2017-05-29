@@ -21,10 +21,11 @@ class Player
 		this.Sprite.body.bounce.y = 0;
 		this.Sprite.body.bounce.x = 0;
 		this.Sprite.body.maxVelocity = 500;
-		this.Sprite.body.gravity.y = 2000;
+		this.Sprite.body.gravity.y = 1000;
 
 		//Weapon
 		this.Weapon = new Gun(this);
+		this.newWeapon = 0;
 
 		this.WeaponData =
 		{
@@ -35,9 +36,10 @@ class Player
 		this.Buttons = _Buttons;
 		
 		this.Jump = {
-			speed : 800,
-			holdSpeed : 500,
-			heightDuration : 10,
+			speed : 520,
+			fallSpeed : 300,
+			holdSpeed : 400,
+			heightDuration : 13,
 			time : 0,
 			cooldown : 0,
 			holdTimer : 0,
@@ -45,6 +47,18 @@ class Player
 		}
 
 		this.getNewItem = true;
+
+		this.score = 0;
+
+		//Add player to the group
+		Game.PlayersGroup.add(this.Sprite);
+		Game.PlayersGroup.children[Game.PlayersGroup.children.indexOf(this.Sprite)].Player = this;
+
+		Game.Text.Style.PlayerScore.fill = _color;
+
+		//Text
+		this.scoreText = Game.Main.add.text((Game.MainData.width/5)*(Game.PlayersGroup.children.indexOf(this.Sprite)+1), 20, this.score, Game.Text.Style.PlayerScore);
+		this.scoreText.anchor.set(0.5);
 	};
 
 	update()
@@ -55,11 +69,11 @@ class Player
 		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_wall);
 		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_gate);
 
-		Game.Main.physics.arcade.overlap(this.Sprite, ItemsController.ItemsGroup, this.collideItem, null, this);
-
 		this.move();
 
 		Game.Main.world.wrap(this.Sprite, 0);
+
+		this.GUI();
 	};
 
 	collideItem(_Player, _Item)
@@ -87,6 +101,12 @@ class Player
 		//console.log(this.collideItemCheck);
 	};
 
+	destroy()
+	{
+		this.Weapon.destroy();
+		this.Sprite.kill();
+	};
+
 	move()
 	{
 		this.Sprite.body.velocity.x = 0;
@@ -111,29 +131,37 @@ class Player
 
 		//JUMP
 		//If player is on flood and press a key
-		if (this.Buttons.up.isDown && this.Sprite.body.onFloor() && Game.Main.time.now > this.Jump.time) {
-			this.Jump.holdTimer = 1;
-			this.Jump.current = false;
+		// if (this.Buttons.up.isDown && this.Sprite.body.onFloor() && Game.Main.time.now > this.Jump.time) {
+		// 	this.Jump.holdTimer = 1;
+		// 	this.Jump.current = false;
 
+		// 	this.Sprite.body.velocity.y = -this.Jump.speed;
+		// 	this.Jump.time = Game.Main.time.now + this.Jump.cooldown;
+		// } else if (this.Buttons.up.isDown && this.Jump.holdTimer != 0) { //In jump and key still press
+		// 	if (this.Jump.holdTimer > this.Jump.heightDuration) {
+		// 		this.Jump.holdTimer = 0;
+		// 	} else {
+		// 		this.Jump.holdTimer++;
+		// 		this.Sprite.body.velocity.y = -this.Jump.holdSpeed;
+		// 	}
+		// } else {
+		// 	this.Jump.holdTimer = 0;
+		// }
+
+		if (this.Buttons.up.isDown && this.Sprite.body.onFloor())
+		{
 			this.Sprite.body.velocity.y = -this.Jump.speed;
-			//this.Sprite.body.gravity.y = 2000;
-			this.Jump.time = Game.Main.time.now + this.Jump.cooldown;
-		} else if (this.Buttons.up.isDown && this.Jump.holdTimer != 0) { //In jump and key still press
-			if (this.Jump.holdTimer > this.Jump.heightDuration) {
-				this.Jump.holdTimer = 0;
-			} else {
-				this.Jump.holdTimer++;
-				this.Sprite.body.velocity.y = -this.Jump.holdSpeed;
-				//this.Sprite.body.gravity.y = 2000;
-			}
-		} else {
-			this.Jump.holdTimer = 0;
 		}
 
 		if (Game.Debug.god)
 		{
 			this.debug();
 		}
+	};
+
+	GUI()
+	{
+		this.scoreText.setText(this.score);
 	};
 
 	switchWeapon(_weaponId)
@@ -157,6 +185,12 @@ class Player
 				break;
 			case 5:
 				this.Weapon = new Shotgun(this);
+				break;
+			case 6:
+				this.Weapon = new RocketLauncher(this);
+				break;
+			case 7:
+				this.Weapon = new Laser(this);
 				break;
 			default:
 				this.WeaponData.currentWeapon = -1;

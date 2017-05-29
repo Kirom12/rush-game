@@ -1,7 +1,10 @@
 /**
  * Static Game class
  * */
-
+/* @TODO
+ * Set enemy object in sprite object
+ * Correction gravity, jump and movements
+ */
 class Game
 {
 	constructor(){};
@@ -25,8 +28,32 @@ class Game
 
 		Game.Debug =
 		{
-			god : true,
+			god : false,
 			mousePosition : false
+		}
+		
+		Game.Text = {};
+		Game.Text.Style =
+		{
+			MainScore : 
+			{
+				font: "32px Arial",
+				fill: "#ff0044",
+				align: "center"
+				//backgroundColor: "#ffff00"
+			},
+			PlayerScore :
+			{
+				font: "26px Arial",
+				fill: "#ff0044",
+				align: "center"
+			},
+			GameOver : 
+			{
+				font: "64px Arial",
+				fill: "#ff0044",
+				align: "center"
+			}
 		}
 	};
 

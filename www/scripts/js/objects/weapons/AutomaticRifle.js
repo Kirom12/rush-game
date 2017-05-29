@@ -8,7 +8,7 @@ class AutomaticRifle extends Weapon
 		super(
 		[
 			Game.Main.add.weapon(20, Graphics.drawRect(8, 8, '#FFF'))
-		]);
+		], _Player);
 
 		this.Weapon.trackSprite(_Player.Sprite, 0, 0, false);
 

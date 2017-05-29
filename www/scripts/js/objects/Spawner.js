@@ -29,7 +29,7 @@ class Spawner
 
 	spawnEnemy()
 	{
-		if (Spawner.enemiesCount < Spawner.maxEnemies)
+		if ((Spawner.enemiesCount < Spawner.maxEnemies) && !Spawner.inLoopEvent)
 		{
 			let rand = Math.random().toFixed(2);
 
@@ -50,11 +50,14 @@ class Spawner
 			
 			Spawner.enemiesCount++;
 
-			if (Spawner.enemiesCount === Spawner.maxEnemies)
+			if (Spawner.enemiesCount >= Spawner.maxEnemies)
 			{
+				Spawner.inLoopEvent = true;
+
 				Game.Main.time.events.add(this.betweenSpawnTime, function()
 				{
 					Spawner.enemiesCount = 0;
+					Spawner.inLoopEvent = false;
 				}, this);
 			}
 		}
@@ -69,7 +72,14 @@ class Spawner
 			runner : {id : 2, proba : .100}
 		};
 
+		Spawner.inLoopEvent = false;
+
 		Spawner.enemiesCount = 0;
-		Spawner.maxEnemies = (2*Map.currentWave)+Map.currentWave;
+		Spawner.setNewWave();
 	};
+
+	static setNewWave()
+	{
+		Spawner.maxEnemies = Game.mainScore+1;
+	}
 }

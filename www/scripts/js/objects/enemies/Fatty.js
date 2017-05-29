@@ -9,6 +9,8 @@ class Fatty extends Enemy
 
 		this.initialSpeed = 100;
 		this.speed = (_initDirection)? this.initialSpeed : -this.initialSpeed;
-		this.life = 200;
+		this.life = 100;
+
+		this.score = 30;
 	}
 }

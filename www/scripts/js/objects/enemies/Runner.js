@@ -10,5 +10,7 @@ class Runner extends Enemy
 		this.initialSpeed = 400;
 		this.speed = (_initDirection)? this.initialSpeed : -this.initialSpeed;
 		this.life = 10;
+
+		this.score = 20;
 	}
 }

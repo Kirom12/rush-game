@@ -1,13 +1,16 @@
 /**
  * Class Weapon
  * */
+//Todo : 
 class Weapon
 {
-	constructor(_Weapons)
+	constructor(_Weapons, _Player)
 	{
 		this.damage = 100;
 		this.Weapons = _Weapons;
 		this.Weapon = this.Weapons[0];
+
+		this.Player = _Player;
 
 		this.defaultAngle =
 		{
@@ -42,7 +45,7 @@ class Weapon
 	{
 		_Bullet.kill();
 
-		Map.Enemies[_Enemy.arrayIndex].hit(this.damage);
+		Map.Enemies[_Enemy.arrayIndex].hit(this.damage, this.Player);
 	};
 
 	fire()
@@ -50,6 +53,14 @@ class Weapon
 		for (let Item of this.Weapons)
 		{
 			Item.fire();
+		}
+	};
+
+	destroy()
+	{
+		for (let Item of this.Weapons)
+		{
+			//Item.destroy();
 		}
 	};
 

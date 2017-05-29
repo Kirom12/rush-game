@@ -30,18 +30,38 @@ class Map
 					{x : 400, y : 610},
 					{x : Game.MainData.width-400, y : 610},
 					{x : 620, y : 365}
-				]
+				],
+				ExitPosition :
+				{
+					x : Game.MainData.width/2-20, y : Game.MainData.height-30
+				},
+				lifes : 10
 			}
 		};
 
 
 		Map.CurrentMap = Map.Maps.test_map;
-		Map.currentWave = 1;
 
 		Map.Spawners = [];
 		
 		Map.Enemies = [];
 		Map.EnemiesGroup = Game.Main.add.group();
+
+		Map.mapLifes = Map.CurrentMap.lifes;
+
+		//Text
+		Map.Text = 
+		{
+			Style : 
+			{
+				MapLifes :
+				{
+					font: "25px Arial",
+					fill: "#ff0044",
+					align: "center"
+				}
+			}
+		}
 	}
 
 	static create()
@@ -75,5 +95,8 @@ class Map
 		}
 
 		ItemsController.init();
+
+		Map.Text.MapLifes = Game.Main.add.text(Map.CurrentMap.ExitPosition.x, Map.CurrentMap.ExitPosition.y, Map.mapLifes, Map.Text.Style.MapLifes);
+		Map.Text.MapLifes.anchor.set(0.5);
 	}
 }

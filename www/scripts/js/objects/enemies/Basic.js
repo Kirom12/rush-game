@@ -9,6 +9,8 @@ class Basic extends Enemy
 
 		this.initialSpeed = 250;
 		this.speed = (_initDirection)? this.initialSpeed : -this.initialSpeed;
-		this.life = 100;
+		this.life = 50;
+
+		this.score = 10;
 	}
 }

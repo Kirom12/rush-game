@@ -36,7 +36,7 @@ class Enemy
 		Map.EnemiesGroup.add(this.Sprite);
 	};
 
-	hit(_damage)
+	hit(_damage, _Player)
 	{
 		this.Sprite.tint = 0xff3333;
 
@@ -59,7 +59,7 @@ class Enemy
 		//Check life
 		if (this.life <= 0)
 		{
-			this.destroy();
+			this.destroy(_Player);
 		}
 	};
 
@@ -79,16 +79,29 @@ class Enemy
 
 	collideEnemyGate(_Sprite)
 	{
+		if (Map.mapLifes > 1)
+		{
+			Map.mapLifes--;
+		}
+		else
+		{
+			PlayState.gameOver();
+		}
+
+		Map.Text.MapLifes.setText(Map.mapLifes);
+
 		this.destroy(_Sprite);
 	}
 
-	destroy()
+	destroy(_Player)
 	{
 		//Kill sprite and remove from enemies array
 		Map.EnemiesGroup.remove(this.Sprite);
 		this.Sprite.kill();
 		let index = Map.Enemies.indexOf(this);
 		//Map.Enemies.splice(index, 1);
+
+		_Player.score += this.score;
 	}
 
 	move()

@@ -3,13 +3,15 @@
  * */
 class ExplosiveWeapon extends Weapon
 {
-	constructor(_Weapons)
+	constructor(_Weapons, _Player)
 	{
-		super(_Weapons);
+		super(_Weapons, _Player);
 
 		this.radius = 90;
 		this.explosionTime = 200;
 		this.damage = 100;
+
+		this.Player = _Player;
 
 		this.ExplosionSprite = Game.Main.add.sprite(-(this.radius*2), -(this.radius*2) , Graphics.drawCircle(this.radius, 'orange'));
 		this.ExplosionSprite.anchor.setTo(0.5);
@@ -43,7 +45,7 @@ class ExplosiveWeapon extends Weapon
 
 	collideExplosion(_Explosion, _Enemy)
 	{
-		Map.Enemies[_Enemy.arrayIndex].hit(this.damage);
+		Map.Enemies[_Enemy.arrayIndex].hit(this.damage, this.Player);
 	};
 
 	explode(_x, _y)
