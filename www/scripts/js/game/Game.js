@@ -59,6 +59,7 @@ class Game
 
 	static preload()
 	{
+		//Test tilesets
 		Game.Main.load.tilemap('test-map', 'assets/maps/test-map.json', null, Phaser.Tilemap.TILED_JSON);
 		Game.Main.load.image('test-tileset', 'assets/tilesets/test-tileset.png');
 
@@ -67,6 +68,11 @@ class Game
 		Game.Main.load.spritesheet('fatty-monster', 'assets/characters/fatty.png', 48, 48);
 		Game.Main.load.spritesheet('runner-monster', 'assets/characters/runner.png', 32, 32);
 		Game.Main.load.spritesheet('cat', 'assets/characters/cat.png', 32, 48);
+
+		//Items
+		Game.Main.load.image('crate', 'assets/imgs/crate.png');
+
+		//Tilesets
 	};
 
 	static create()
