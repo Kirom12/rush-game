@@ -21,7 +21,7 @@ class PlayState
 		Game.Main.world.setBounds(0,0, Game.MainData.width, Game.MainData.height);
 		Game.Main.physics.arcade.gravity.y = 0;
 
-		Game.nbPlayers = 2;
+		Game.nbPlayers = 1;
 		Game.mainScore = 0;
 
 		Map.construct();
@@ -31,14 +31,14 @@ class PlayState
 		Game.PlayersGroup = Game.Main.add.group();
 		Game.PlayersGroup.Players = [];
 
-		new Player(650, 600, 'green',
-		{
-			up : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Z),
-			down : Game.Main.input.keyboard.addKey(Phaser.Keyboard.S),
-			right : Game.Main.input.keyboard.addKey(Phaser.Keyboard.D),
-			left : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Q),
-			fire : Game.Main.input.keyboard.addKey(220)
-		});
+		// new Player(650, 600, 'green',
+		// {
+		// 	up : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Z),
+		// 	down : Game.Main.input.keyboard.addKey(Phaser.Keyboard.S),
+		// 	right : Game.Main.input.keyboard.addKey(Phaser.Keyboard.D),
+		// 	left : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Q),
+		// 	fire : Game.Main.input.keyboard.addKey(220)
+		// });
 
 		new Player(600, 600, 'blue',
 		{
@@ -74,7 +74,6 @@ class PlayState
 		{
 			Player.Player.update();
 		}
-
 
 		if (Game.Debug.mousePosition)
 		{
