@@ -3,13 +3,13 @@
  * */
 class Enemy
 {
-	constructor(_width = 30, _height = 30, _x = Game.MainData.width/2, _y = 50, _initDirection = Math.random() >= 0.5, _Spawner, _color = 'yellow')
+	constructor(_width = 30, _height = 30, _x = Game.MainData.width/2, _y = 50, _initDirection = Math.random() >= 0.5, _Spawner, _spriteName, _color = 'yellow')
 	{
 		this.Spawner = _Spawner;
 
-		let bmd = Graphics.drawRect(_width, _height, _color);
+		//let bmd = Graphics.drawRect(_width, _height, _color);
 
-		this.Sprite = Game.Main.add.sprite(_x, _y, bmd);
+		this.Sprite = Game.Main.add.sprite(_x, _y, _spriteName);
 		Game.Main.physics.enable(this.Sprite, Phaser.Physics.ARCADE);
 
 		this.Sprite.anchor.setTo(0.5);
