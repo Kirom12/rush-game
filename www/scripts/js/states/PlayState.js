@@ -75,6 +75,8 @@ class PlayState
 			Player.Player.update();
 		}
 
+		Map.Cat.update();
+
 		if (Game.Debug.mousePosition)
 		{
 			this.debug();

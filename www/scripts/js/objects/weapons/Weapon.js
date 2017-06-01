@@ -29,8 +29,8 @@ class Weapon
 	{
 		for (let Item of this.Weapons)
 		{
-			Game.Main.physics.arcade.collide(Item.bullets, Map.map.Layers.collision_wall, this.collideBulletWall, null, this);
-			Game.Main.physics.arcade.collide(Item.bullets, Map.map.Layers.collision_floor, this.collideBulletWall, null, this);
+			Game.Main.physics.arcade.collide(Item.bullets, Map.map.Layers.collide_wall, this.collideBulletWall, null, this);
+			Game.Main.physics.arcade.collide(Item.bullets, Map.map.Layers.collide_ground, this.collideBulletWall, null, this);
 
 			Game.Main.physics.arcade.collide(Item.bullets, Map.EnemiesGroup, this.collideEnemy, null, this);
 		}

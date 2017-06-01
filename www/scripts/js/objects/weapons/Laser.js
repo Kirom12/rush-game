@@ -22,8 +22,8 @@ class Laser extends Weapon
 	update()
 	{
 
-		Game.Main.physics.arcade.collide(this.Weapon.bullets, Map.map.Layers.collision_wall, this.collideBulletWall, null, this);
-		Game.Main.physics.arcade.collide(this.Weapon.bullets, Map.map.Layers.collision_floor, this.collideBulletWall, null, this);
+		Game.Main.physics.arcade.collide(this.Weapon.bullets, Map.map.Layers.collide_wall, this.collideBulletWall, null, this);
+		Game.Main.physics.arcade.collide(this.Weapon.bullets, Map.map.Layers.collide_ground, this.collideBulletWall, null, this);
 
 		Game.Main.physics.arcade.overlap(this.Weapon.bullets, Map.EnemiesGroup, this.collideEnemy, null, this);
 	};

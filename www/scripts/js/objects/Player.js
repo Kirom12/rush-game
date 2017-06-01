@@ -65,9 +65,8 @@ class Player
 	{
 		this.Weapon.update();
 
-		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_floor);
-		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_wall);
-		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_gate);
+		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collide_ground);
+		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collide_wall);
 
 		this.move();
 

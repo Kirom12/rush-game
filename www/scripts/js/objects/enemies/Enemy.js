@@ -65,9 +65,9 @@ class Enemy
 
 	update()
 	{
-		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_floor);
-		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_wall, this.collideEnemyWall, null, this);
-		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collision_gate, this.collideEnemyGate, null, this);
+		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collide_ground);
+		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collide_wall, this.collideEnemyWall, null, this);
+		Game.Main.physics.arcade.overlap(this.Sprite, Map.Cat.Sprite, this.collideEnemyGate, null, this);
 
 		this.move();
 	};
@@ -107,5 +107,13 @@ class Enemy
 	move()
 	{
 		this.Sprite.body.velocity.x = this.speed;
+		if (this.speed > 0)
+		{
+			this.Sprite.animations.play('right');
+		} 
+		else if (this.speed < 0)
+		{
+			this.Sprite.animations.play('left');
+		}
 	}
 }

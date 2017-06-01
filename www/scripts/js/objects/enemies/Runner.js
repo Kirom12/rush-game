@@ -12,5 +12,10 @@ class Runner extends Enemy
 		this.life = 10;
 
 		this.score = 20;
+
+		//Anmations
+		this.Sprite.animations.add('idle', [4], 15, true);
+		this.Sprite.animations.add('left', [4, 5, 6, 7], 15, true);
+		this.Sprite.animations.add('right', [0, 1, 2, 3], 15, true);
 	}
 }

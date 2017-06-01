@@ -12,5 +12,10 @@ class Basic extends Enemy
 		this.life = 50;
 
 		this.score = 10;
+
+		//Anmations
+		this.Sprite.animations.add('idle', [4], 10, true);
+		this.Sprite.animations.add('left', [5, 6, 7, 8, 9], 10, true);
+		this.Sprite.animations.add('right', [0, 1, 2, 3], 10, true);
 	}
 }

@@ -7,35 +7,37 @@ class Map
 	{
 		Log.print("construct map");
 
+		Map.marginTop = 64;
+
 		Map.Maps = 
 		{
 			test_map : 
 			{
-				name : 'test-map',
+				name : 'map1',
 				MobsSpawners :
 				[
-					{x : Game.MainData.width*(1/3), y : 20, direction : 0},
-					{x : Game.MainData.width*(2/3), y : 20, direction : 1}
+					{x : Game.MainData.width*(1/3), y : 20+Map.marginTop, direction : 0},
+					{x : Game.MainData.width*(2/3), y : 20+Map.marginTop, direction : 1}
 				],
 				ItemsSpawners :
 				[
-					{x : 80, y : 150},
-					{x : Game.MainData.width-80, y : 150},
-					{x : 400, y : 250},
-					{x : Game.MainData.width-400, y : 250},
-					{x : 200, y : 470},
-					{x : Game.MainData.width-200, y : 470},
-					{x : 115, y : 730},
-					{x : Game.MainData.width-115, y : 730},
-					{x : 400, y : 610},
-					{x : Game.MainData.width-400, y : 610},
-					{x : 620, y : 365}
+					{x : 80, y : 150+Map.marginTop},
+					{x : Game.MainData.width-80, y : 150+Map.marginTop},
+					{x : 400, y : 250+Map.marginTop},
+					{x : Game.MainData.width-400, y : 250+Map.marginTop},
+					{x : 200, y : 470+Map.marginTop},
+					{x : Game.MainData.width-200, y : 470+Map.marginTop},
+					{x : 115, y : 730+Map.marginTop},
+					{x : Game.MainData.width-115, y : 730+Map.marginTop},
+					{x : 400, y : 610+Map.marginTop},
+					{x : Game.MainData.width-400, y : 610+Map.marginTop},
+					{x : 620, y : 365+Map.marginTop}
 				],
 				ExitPosition :
 				{
-					x : Game.MainData.width/2-20, y : Game.MainData.height-30
+					x : Game.MainData.width/2-20, y : (Game.MainData.height-80)
 				},
-				lifes : 10
+				lifes : 9
 			}
 		};
 
@@ -45,7 +47,6 @@ class Map
 		Map.Spawners = [];
 		
 		Map.Enemies = [];
-		Map.EnemiesGroup = Game.Main.add.group();
 
 		Map.mapLifes = Map.CurrentMap.lifes;
 
@@ -68,24 +69,33 @@ class Map
 	{
 		Log.print("create map");
 
+		Game.Main.stage.backgroundColor = "#4488a6";
+
 		Map.map = Game.Main.add.tilemap(Map.CurrentMap.name);
-		Map.map.addTilesetImage('test-tileset');
+
+		Map.map.addTilesetImage('world-sp-0');
+		Map.map.addTilesetImage('world-sp-1');
+		Map.map.addTilesetImage('gui');
 
 		Map.map.Layers =
 		{
 			main : Map.map.createLayer('main'),
-			collision_floor : Map.map.createLayer('collision-floor'),
-			collision_wall : Map.map.createLayer('collision-wall'),
-			collision_gate : Map.map.createLayer('collision-gate')
+			collide_ground : Map.map.createLayer('collide-ground'),
+			collide_wall : Map.map.createLayer('collide-wall'),
+			gui : Map.map.createLayer('gui')
 		};
 
-		Map.map.Layers.collision_floor.alpha = 0;
-		Map.map.Layers.collision_wall.alpha = 0;
-		Map.map.Layers.collision_gate.alpha = 0;
+		Map.EnemiesGroup = Game.Main.add.group();
 
-		Map.map.setCollisionBetween(1, 200, true, Map.map.Layers.collision_floor);
-		Map.map.setCollisionBetween(1, 200, true, Map.map.Layers.collision_wall);
-		Map.map.setCollisionBetween(1, 200, true, Map.map.Layers.collision_gate);
+		Map.Cat = new Cat(Map.CurrentMap.ExitPosition.x, Map.CurrentMap.ExitPosition.y); 
+
+		Map.map.Layers.top =  Map.map.createLayer('top');
+
+		Map.map.Layers.collide_ground.alpha = 0;
+		Map.map.Layers.collide_wall.alpha = 0;
+
+		Map.map.setCollisionBetween(4300, 4400, true, Map.map.Layers.collide_ground);
+		Map.map.setCollisionBetween(4300, 4400, true, Map.map.Layers.collide_wall);
 
 		Spawner.staticConstructor();
 
@@ -96,7 +106,7 @@ class Map
 
 		ItemsController.init();
 
-		Map.Text.MapLifes = Game.Main.add.text(Map.CurrentMap.ExitPosition.x, Map.CurrentMap.ExitPosition.y, Map.mapLifes, Map.Text.Style.MapLifes);
+		Map.Text.MapLifes = Game.Main.add.text(Map.CurrentMap.ExitPosition.x, Map.CurrentMap.ExitPosition.y-10, Map.mapLifes, Map.Text.Style.MapLifes);
 		Map.Text.MapLifes.anchor.set(0.5);
 	}
 }
