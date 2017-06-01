@@ -50,6 +50,13 @@ class Map
 
 		Map.mapLifes = Map.CurrentMap.lifes;
 
+		Map.StyleChangeData =
+		{
+			current: 0,
+			changeEvery: 2,
+			nbStyles: 5
+		}
+
 		//Text
 		Map.Text = 
 		{
@@ -108,5 +115,45 @@ class Map
 
 		Map.Text.MapLifes = Game.Main.add.text(Map.CurrentMap.ExitPosition.x, Map.CurrentMap.ExitPosition.y-10, Map.mapLifes, Map.Text.Style.MapLifes);
 		Map.Text.MapLifes.anchor.set(0.5);
+	}
+
+	static changeStyle(_style)
+	{
+		console.log('change style');
+
+		Map.map = Game.Main.add.tilemap(Map.CurrentMap.name);
+
+		Map.map.addTilesetImage('world-sp-0', _style);
+		Map.map.addTilesetImage('world-sp-1');
+		Map.map.addTilesetImage('gui');
+
+		Map.map.Layers =
+		{
+			main : Map.map.createLayer('main'),
+			collide_ground : Map.map.createLayer('collide-ground'),
+			collide_wall : Map.map.createLayer('collide-wall'),
+			gui : Map.map.createLayer('gui')
+		};
+
+		Map.map.Layers.top =  Map.map.createLayer('top');
+
+		Map.map.Layers.collide_ground.alpha = 0;
+		Map.map.Layers.collide_wall.alpha = 0;
+
+		Map.map.setCollisionBetween(4300, 4400, true, Map.map.Layers.collide_ground);
+		Map.map.setCollisionBetween(4300, 4400, true, Map.map.Layers.collide_wall);
+	}
+
+	static checkChangeStyle()
+	{
+
+		Map.StyleChangeData.current++;
+
+		if (Map.StyleChangeData.current >= Map.StyleChangeData.changeEvery)
+		{
+			Map.StyleChangeData.current = 0;
+
+			Map.changeStyle('world-sp-' + Random.rangeInt(0, Map.StyleChangeData.nbStyles-1));
+		}
 	}
 }

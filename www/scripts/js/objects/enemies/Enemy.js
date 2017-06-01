@@ -27,6 +27,17 @@ class Enemy
 
 		this.HitText.anchor.setTo(0.5);
 
+		this.Particles =
+		{
+			Die : Game.Main.add.emitter(_x, _y, 6)
+		}
+
+		this.Particles.Die.makeParticles(Graphics.drawRect(7, 7, '#b00000'));
+		this.Particles.Die.width = 30;
+		this.Particles.Die.minParticleScale = 1;
+		this.Particles.Die.maxParticleScale = 1.5;
+		//this.Particles.Die.gravity = 500;
+
 	};
 
 	addToGroup()
@@ -95,6 +106,11 @@ class Enemy
 
 	destroy(_Player)
 	{
+
+		this.Particles.Die.x = this.Sprite.position.x;
+		this.Particles.Die.y = this.Sprite.position.y;
+		this.Particles.Die.start(true, 200, null, 10);
+
 		//Kill sprite and remove from enemies array
 		Map.EnemiesGroup.remove(this.Sprite);
 		this.Sprite.kill();

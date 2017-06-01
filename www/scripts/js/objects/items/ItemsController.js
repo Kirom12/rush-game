@@ -33,28 +33,7 @@ class ItemsController
 		//Player are on crates
 		if (ItemsController.ItemsTakable)
 		{
-			//Delete all crates/sprites
-			for (let Item of ItemsController.ItemsGroup.children)
-			{
-				Item.Item.destroy();
-			}
-
-			for (let Player of Game.PlayersGroup.children)
-			{
-				Player.Player.switchWeapon(Player.Player.newWeapon);
-			}
-
-			ItemsController.ItemsGroup.children = [];
-
-			//Update and display score
-			Game.mainScore++;
-			Game.Text.MainScore.setText(Game.mainScore);
-
-			//Recalculate enemies spawn
-			Spawner.setNewWave();
-
-			//Regenerate random item
-			ItemsController.generateItems();
+			ItemsController.nextWave();
 		}
 
 		ItemsController.ItemsTakable = true;
@@ -83,4 +62,32 @@ class ItemsController
 			lastRand = random;
 		}
 	};
+
+	static nextWave()
+	{
+		//Delete all crates/sprites
+		for (let Item of ItemsController.ItemsGroup.children)
+		{
+			Item.Item.destroy();
+		}
+
+		for (let Player of Game.PlayersGroup.children)
+		{
+			Player.Player.switchWeapon(Player.Player.newWeapon);
+		}
+
+		ItemsController.ItemsGroup.children = [];
+
+		//Update and display score
+		Game.mainScore++;
+		Game.Text.MainScore.setText(Game.mainScore);
+
+		//Recalculate enemies spawn
+		Spawner.setNewWave();
+
+		Map.checkChangeStyle();
+
+		//Regenerate random item
+		ItemsController.generateItems();
+	}
 }
