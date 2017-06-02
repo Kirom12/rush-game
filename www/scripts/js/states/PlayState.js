@@ -21,7 +21,7 @@ class PlayState
 		Game.Main.world.setBounds(0,0, Game.MainData.width, Game.MainData.height);
 		Game.Main.physics.arcade.gravity.y = 0;
 
-		Game.nbPlayers = 1;
+		Game.nbPlayers = 2;
 		Game.mainScore = 0;
 
 		Map.construct();
@@ -38,21 +38,25 @@ class PlayState
 			down : Game.Main.input.keyboard.addKey(40),
 			right : Game.Main.input.keyboard.addKey(39),
 			left : Game.Main.input.keyboard.addKey(37),
-			fire : Game.Main.input.keyboard.addKey(187)
+			fire : Game.Main.input.keyboard.addKey(187),
+			slow : Game.Main.input.keyboard.addKey(Phaser.Keyboard.K)
 		});
 
-		// new Player(650, 600, 1, 'Player 2','green',
-		// {
-		// 	up : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Z),
-		// 	down : Game.Main.input.keyboard.addKey(Phaser.Keyboard.S),
-		// 	right : Game.Main.input.keyboard.addKey(Phaser.Keyboard.D),
-		// 	left : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Q),
-		// 	fire : Game.Main.input.keyboard.addKey(220)
-		// });
+		new Player(650, 600, 1, 'Player 2','green',
+		{
+			up : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Z),
+			down : Game.Main.input.keyboard.addKey(Phaser.Keyboard.S),
+			right : Game.Main.input.keyboard.addKey(Phaser.Keyboard.D),
+			left : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Q),
+			fire : Game.Main.input.keyboard.addKey(220),
+			slow : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Y)
+		});
 
 		//Text
-		Game.Text.MainScore = Game.Main.add.text(Game.MainData.width/2, 35, Game.mainScore, Game.Text.Style.MainScore);
+		Game.Text.MainScore = Game.Main.add.text(Game.MainData.width/2, 30, Game.mainScore, Game.Text.Style.MainScore);
+		Game.Text.Waves = Game.Main.add.text(Game.MainData.width/2, 50, 'wave', Game.Text.Style.Waves);
 		Game.Text.MainScore.anchor.set(0.5);
+		Game.Text.Waves.anchor.set(0.5);
 
 		//PlayState.gameOver();
 	};

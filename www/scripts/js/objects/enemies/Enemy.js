@@ -3,9 +3,12 @@
  * */
 class Enemy
 {
-	constructor(_width = 30, _height = 30, _x = Game.MainData.width/2, _y = 50, _initDirection = Math.random() >= 0.5, _Spawner, _spriteName, _color = 'yellow')
+	constructor(_initialSpeed ,_width = 30, _height = 30, _x = Game.MainData.width/2, _y = 50, _initDirection = Math.random() >= 0.5, _Spawner, _spriteName, _color = 'yellow')
 	{
 		this.Spawner = _Spawner;
+
+		this.initialSpeed = _initialSpeed;
+		this.speed = (_initDirection)? this.initialSpeed : -this.initialSpeed;
 
 		//let bmd = Graphics.drawRect(_width, _height, _color);
 
@@ -42,6 +45,16 @@ class Enemy
 		Map.EnemiesGroup.add(this.Sprite);
 		Map.EnemiesGroup.children[Map.EnemiesGroup.children.indexOf(this.Sprite)].Enemy = this;
 
+		if (Spawner.currentTrouble)
+		{
+			switch (Spawner.currentTrouble)
+			{
+				case 'slow':
+						this.speed /= 2;
+					break;
+				default:
+			}
+		}
 	};
 
 	hit(_damage, _Player)
@@ -98,10 +111,10 @@ class Enemy
 
 		Map.Text.MapLifes.setText(Map.mapLifes);
 
-		this.destroy(_Sprite);
-	}
+		this.destroy();
+	};
 
-	destroy(_Player)
+	destroy(_Player = null)
 	{
 
 		this.Particles.Die.x = this.Sprite.position.x;
@@ -114,8 +127,11 @@ class Enemy
 		//let index = Map.Enemies.indexOf(this);
 		//Map.Enemies.splice(index, 1);
 
-		_Player.score += this.score;
-	}
+		if (_Player)
+		{
+			_Player.increaseScore(this.score);
+		}
+	};
 
 	move()
 	{
@@ -128,5 +144,5 @@ class Enemy
 		{
 			this.Sprite.animations.play('left');
 		}
-	}
+	};
 }

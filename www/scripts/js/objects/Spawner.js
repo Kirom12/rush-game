@@ -73,6 +73,9 @@ class Spawner
 		Spawner.inLoopEvent = false;
 
 		Spawner.enemiesCount = 0;
+
+		Spawner.currentTrouble = null;
+
 		Spawner.setNewWave();
 	};
 

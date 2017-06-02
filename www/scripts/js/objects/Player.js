@@ -36,6 +36,11 @@ class Player
 			switchHold : false
 		}
 
+		this.Skills =
+		{
+			Slow : new Slow()
+		}
+
 		this.Buttons = _Buttons;
 		
 		this.Jump = {
@@ -51,18 +56,22 @@ class Player
 
 		this.getNewItem = true;
 
+		this.maxScore = 200;
 		this.score = 0;
+		this.mana = 0;
 
 		//Add player to the group
 		Game.PlayersGroup.add(this.Sprite);
 		Game.PlayersGroup.children[Game.PlayersGroup.children.indexOf(this.Sprite)].Player = this;
 
 		Game.Text.Style.PlayerScore.fill = _color;
+		Game.Text.Style.PlayerMana.fill = _color;
 
 		//Text
 		this.Texts =
 		{
-			Score : Game.Main.add.text((Game.MainData.width/5)*(Game.PlayersGroup.children.indexOf(this.Sprite)+1), 20, this.name + ' - ' +this.score, Game.Text.Style.PlayerScore)
+			Score : Game.Main.add.text((Game.MainData.width/5)*(Game.PlayersGroup.children.indexOf(this.Sprite)+1), 20, this.name + ' - ' +this.score, Game.Text.Style.PlayerScore),
+			Mana : Game.Main.add.text((Game.MainData.width/5)*(Game.PlayersGroup.children.indexOf(this.Sprite)+1), 40, this.mana, Game.Text.Style.PlayerMana)
 		};
 
 		this.Texts.Score.anchor.set(0.5);
@@ -129,6 +138,12 @@ class Player
 			this.Weapon.setOrientation('E');
 		}
 
+		//SKILLS
+		if (this.Buttons.slow.isDown)
+		{
+			this.Skills.Slow.activate(this);
+		}
+
 		//FIRE
 		if (this.Buttons.fire.isDown)
 		{
@@ -168,6 +183,15 @@ class Player
 	GUI()
 	{
 		this.Texts.Score.setText(this.name + ' - ' +this.score);
+		this.Texts.Mana.setText(this.mana);
+	};
+
+	increaseScore(_points)
+	{
+		this.score += _points;
+
+		this.mana += _points;
+		if (this.mana > this.maxScore) this.mana = this.maxScore;
 	};
 
 	switchWeapon(_weaponId)

@@ -5,12 +5,9 @@ class Runner extends Enemy
 {
 	constructor(_x, _y, _initDirection, _Spawner)
 	{
-		super(18, 18, _x, _y, _initDirection, _Spawner, 'runner-monster', '#fdff76');
-
-		this.initialSpeed = 400;
-		this.speed = (_initDirection)? this.initialSpeed : -this.initialSpeed;
+		super(400, 18, 18, _x, _y, _initDirection, _Spawner, 'runner-monster', '#fdff76');
+		
 		this.life = 10;
-
 		this.score = 20;
 
 		//Anmations

@@ -41,9 +41,22 @@ class Game
 				align: "center"
 				//backgroundColor: "#ffff00"
 			},
+			Waves : 
+			{
+				font: "16px Arial",
+				fill: "#ff0044",
+				align: "center"
+				//backgroundColor: "#ffff00"
+			},
 			PlayerScore :
 			{
 				font: "26px Arial",
+				fill: "#ff0044",
+				align: "center"
+			},
+			PlayerMana :
+			{
+				font: "16px Arial",
 				fill: "#ff0044",
 				align: "center"
 			},
