@@ -45,7 +45,7 @@ class Weapon
 	{
 		_Bullet.kill();
 
-		Map.Enemies[_Enemy.arrayIndex].hit(this.damage, this.Player);
+		_Enemy.Enemy.hit(this.damage, this.Player);
 	};
 
 	fire()

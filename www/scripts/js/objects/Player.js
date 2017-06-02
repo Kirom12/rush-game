@@ -3,11 +3,14 @@
  * */
 class Player
 {
-	constructor(_x = 50, _y = 50, _color = 'green', _Buttons, _scale = 1)
+	constructor(_x = 50, _y = 50, _id = 0, _name = 'Player 1', _color = 'green', _Buttons, _scale = 1)
 	{
 		this.x = _x;
 		this.y = _y;
 		this.scale = _scale;
+
+		this.id = _id,
+		this.name = _name;
 
 		this.speed = 500;
 
@@ -57,8 +60,12 @@ class Player
 		Game.Text.Style.PlayerScore.fill = _color;
 
 		//Text
-		this.scoreText = Game.Main.add.text((Game.MainData.width/5)*(Game.PlayersGroup.children.indexOf(this.Sprite)+1), 20, this.score, Game.Text.Style.PlayerScore);
-		this.scoreText.anchor.set(0.5);
+		this.Texts =
+		{
+			Score : Game.Main.add.text((Game.MainData.width/5)*(Game.PlayersGroup.children.indexOf(this.Sprite)+1), 20, this.name + ' - ' +this.score, Game.Text.Style.PlayerScore)
+		};
+
+		this.Texts.Score.anchor.set(0.5);
 	};
 
 	update()
@@ -160,7 +167,7 @@ class Player
 
 	GUI()
 	{
-		this.scoreText.setText(this.score);
+		this.Texts.Score.setText(this.name + ' - ' +this.score);
 	};
 
 	switchWeapon(_weaponId)

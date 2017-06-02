@@ -53,7 +53,7 @@ class Map
 		Map.StyleChangeData =
 		{
 			current: 0,
-			changeEvery: 2,
+			changeEvery: 5,
 			nbStyles: 5
 		}
 
@@ -119,29 +119,18 @@ class Map
 
 	static changeStyle(_style)
 	{
-		console.log('change style');
-
-		Map.map = Game.Main.add.tilemap(Map.CurrentMap.name);
+		Map.map.Layers.main.destroy();
+		Map.map.Layers.top.destroy();
 
 		Map.map.addTilesetImage('world-sp-0', _style);
 		Map.map.addTilesetImage('world-sp-1');
-		Map.map.addTilesetImage('gui');
 
-		Map.map.Layers =
-		{
-			main : Map.map.createLayer('main'),
-			collide_ground : Map.map.createLayer('collide-ground'),
-			collide_wall : Map.map.createLayer('collide-wall'),
-			gui : Map.map.createLayer('gui')
-		};
-
+		Map.map.Layers.main = Map.map.createLayer('main');
+		Game.Main.world.bringToTop(Map.EnemiesGroup);
 		Map.map.Layers.top =  Map.map.createLayer('top');
 
-		Map.map.Layers.collide_ground.alpha = 0;
-		Map.map.Layers.collide_wall.alpha = 0;
-
-		Map.map.setCollisionBetween(4300, 4400, true, Map.map.Layers.collide_ground);
-		Map.map.setCollisionBetween(4300, 4400, true, Map.map.Layers.collide_wall);
+		Game.Main.world.bringToTop(ItemsController.ItemsGroup);
+		Game.Main.world.bringToTop(Game.PlayersGroup);
 	}
 
 	static checkChangeStyle()

@@ -38,13 +38,10 @@ class Enemy
 		this.Particles.Die.maxParticleScale = 1.5;
 		//this.Particles.Die.gravity = 500;
 
-	};
-
-	addToGroup()
-	{
-		this.Sprite.arrayIndex = Map.Enemies.indexOf(this);
-
+		//Add Enemy to group
 		Map.EnemiesGroup.add(this.Sprite);
+		Map.EnemiesGroup.children[Map.EnemiesGroup.children.indexOf(this.Sprite)].Enemy = this;
+
 	};
 
 	hit(_damage, _Player)
@@ -114,7 +111,7 @@ class Enemy
 		//Kill sprite and remove from enemies array
 		Map.EnemiesGroup.remove(this.Sprite);
 		this.Sprite.kill();
-		let index = Map.Enemies.indexOf(this);
+		//let index = Map.Enemies.indexOf(this);
 		//Map.Enemies.splice(index, 1);
 
 		_Player.score += this.score;

@@ -3,7 +3,6 @@
  * */
 /* @TODO
  * Set enemy object in sprite object
- * Correction gravity, jump and movements
  */
 class Game
 {

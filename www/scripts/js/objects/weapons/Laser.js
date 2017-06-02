@@ -30,6 +30,6 @@ class Laser extends Weapon
 
 	collideEnemy(_Bullet, _Enemy)
 	{
-		Map.Enemies[_Enemy.arrayIndex].hit(this.damage, this.Player);
+		_Enemy.Enemy.hit(this.damage, this.Player);
 	};
 }

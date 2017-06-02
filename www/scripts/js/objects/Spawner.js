@@ -35,18 +35,16 @@ class Spawner
 
 			if (rand < Spawner.SpawnProbability.basic.proba)
 			{
-				Map.Enemies.push(new Basic(this.x, this.y, this.direction, this));
+				new Basic(this.x, this.y, this.direction, this);
 			}
 			else if (rand < Spawner.SpawnProbability.fatty.proba)
 			{
-				Map.Enemies.push(new Fatty(this.x, this.y, this.direction, this));
+				new Fatty(this.x, this.y, this.direction, this);
 			}
 			else
 			{
-				Map.Enemies.push(new Runner(this.x, this.y, this.direction, this));
+				new Runner(this.x, this.y, this.direction, this);
 			}
-
-			Map.Enemies[Map.Enemies.length-1].addToGroup();
 			
 			Spawner.enemiesCount++;
 

@@ -11,6 +11,7 @@ class Item
 		Game.Main.physics.enable(this.Sprite, Phaser.Physics.ARCADE);
 
 		this.Sprite.anchor.setTo(0.5);
+		this.Sprite.scale.setTo(1.2);
 		this.Sprite.body.bounce.y = 0;
 		this.Sprite.body.bounce.x = 0;
 		this.Sprite.body.maxVelocity = 500;

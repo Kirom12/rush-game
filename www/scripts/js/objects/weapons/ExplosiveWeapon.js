@@ -52,7 +52,7 @@ class ExplosiveWeapon extends Weapon
 
 	collideExplosion(_Explosion, _Enemy)
 	{
-		Map.Enemies[_Enemy.arrayIndex].hit(this.damage, this.Player);
+		_Enemy.Enemy.hit(this.damage, this.Player);
 	};
 
 	explode(_x, _y)
