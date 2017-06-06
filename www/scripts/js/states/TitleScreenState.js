@@ -33,17 +33,13 @@ class TitleScreenState
 		this.Button.OnePlayer.alpha = 0;
 		this.Button.TwoPlayer.alpha = 0;
 		this.Button.Exit.alpha = 0;
-
-		this.Button.OnePlayer.inputEnable = true;
-		this.Button.TwoPlayer.inputEnable = true;
-		this.Button.Exit.inputEnable = true;
 	};
 
 	start(_multiplayer = false)
 	{
 		Game.multiplayer = _multiplayer;
 
-		Game.Main.state.start('play');
+		Game.Main.state.start('map-screen');
 	};
 
 	exit()

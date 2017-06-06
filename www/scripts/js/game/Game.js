@@ -151,12 +151,15 @@ class Game
 
 		//Backgrounds
 		Game.Main.load.image('title-screen', 'assets/imgs/title-screen.jpg');
+		Game.Main.load.image('map-screen', 'assets/imgs/map-screen.jpg');
 	};
 
 	static create()
 	{
 		Game.Main.state.add('play', PlayState);
 		Game.Main.state.add('title-screen', TitleScreenState);
+		Game.Main.state.add('map-screen', MapScreenState);
+
 		Game.Main.state.start('title-screen');
 	};
 

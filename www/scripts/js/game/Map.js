@@ -113,7 +113,18 @@ class Map
 		};
 
 
-		Map.CurrentMap = Map.Maps.map1;
+		switch(Game.currentMap)
+		{
+			case 'map1':
+				Map.CurrentMap = Map.Maps.map1;
+				break;
+			case 'map2':
+				Map.CurrentMap = Map.Maps.map2;
+				break;
+			case 'map3':
+				Map.CurrentMap = Map.Maps.map3;
+				break;
+		}
 
 		Map.Spawners = [];
 		
