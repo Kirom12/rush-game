@@ -21,7 +21,6 @@ class PlayState
 		Game.Main.world.setBounds(0,0, Game.MainData.width, Game.MainData.height);
 		Game.Main.physics.arcade.gravity.y = 0;
 
-		Game.nbPlayers = 2;
 		Game.mainScore = 0;
 
 		Map.construct();
@@ -32,25 +31,35 @@ class PlayState
 		Game.PlayersGroup.Players = [];
 
 
-		new Player(600, 600, 0, 'Player 1','blue',
+		new Player(600, 600, 0, 'Player 1', '#70baeb',
 		{
 			up : Game.Main.input.keyboard.addKey(38),
 			down : Game.Main.input.keyboard.addKey(40),
 			right : Game.Main.input.keyboard.addKey(39),
 			left : Game.Main.input.keyboard.addKey(37),
 			fire : Game.Main.input.keyboard.addKey(187),
-			slow : Game.Main.input.keyboard.addKey(Phaser.Keyboard.K)
+			slow : Game.Main.input.keyboard.addKey(Phaser.Keyboard.K),
+			weapon : Game.Main.input.keyboard.addKey(Phaser.Keyboard.L),
+			other : Game.Main.input.keyboard.addKey(Phaser.Keyboard.M)
 		});
 
-		new Player(650, 600, 1, 'Player 2','green',
+		if (Game.multiplayer) 
 		{
-			up : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Z),
-			down : Game.Main.input.keyboard.addKey(Phaser.Keyboard.S),
-			right : Game.Main.input.keyboard.addKey(Phaser.Keyboard.D),
-			left : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Q),
-			fire : Game.Main.input.keyboard.addKey(220),
-			slow : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Y)
-		});
+			new Player(650, 600, 1, 'Player 2','#50ed62',
+			{
+				up : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Z),
+				down : Game.Main.input.keyboard.addKey(Phaser.Keyboard.S),
+				right : Game.Main.input.keyboard.addKey(Phaser.Keyboard.D),
+				left : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Q),
+				fire : Game.Main.input.keyboard.addKey(16),
+				slow : Game.Main.input.keyboard.addKey(49),
+				weapon : Game.Main.input.keyboard.addKey(50),
+				other : Game.Main.input.keyboard.addKey(51)
+			});	
+		}
+
+
+		Game.nbPlayers = Game.PlayersGroup.children.length;
 
 		//Text
 		Game.Text.MainScore = Game.Main.add.text(Game.MainData.width/2, 30, Game.mainScore, Game.Text.Style.MainScore);

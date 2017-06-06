@@ -11,7 +11,7 @@ class Map
 
 		Map.Maps = 
 		{
-			test_map : 
+			map1 : 
 			{
 				name : 'map1',
 				MobsSpawners :
@@ -37,12 +37,83 @@ class Map
 				{
 					x : Game.MainData.width/2-20, y : (Game.MainData.height-80)
 				},
-				lifes : 9
+				lifes : 9,
+				CollideId :
+				{
+					min : 4300,
+					max : 4400
+				}
+			},
+			map2 : 
+			{
+				name : 'map2',
+				MobsSpawners :
+				[
+					{x : Game.MainData.width*(1/3)-300, y : 20+Map.marginTop, direction : 1},
+					{x : Game.MainData.width*(2/3)+300, y : 20+Map.marginTop, direction : 0}
+				],
+				ItemsSpawners :
+				[
+					{x : 80, y : 150+Map.marginTop},
+					{x : Game.MainData.width-80, y : 150+Map.marginTop},
+					{x : 400, y : 250+Map.marginTop},
+					{x : Game.MainData.width-400, y : 250+Map.marginTop},
+					{x : 200, y : 470+Map.marginTop},
+					{x : Game.MainData.width-200, y : 470+Map.marginTop},
+					{x : 115, y : 730+Map.marginTop},
+					{x : Game.MainData.width-115, y : 730+Map.marginTop},
+					{x : 400, y : 610+Map.marginTop},
+					{x : Game.MainData.width-400, y : 610+Map.marginTop},
+					{x : 620, y : 365+Map.marginTop}
+				],
+				ExitPosition :
+				{
+					x : Game.MainData.width/2-20, y : (Game.MainData.height-80)
+				},
+				lifes : 9,
+				CollideId :
+				{
+					min : 300,
+					max : 400
+				}
+			},
+			map3 : 
+			{
+				name : 'map3',
+				MobsSpawners :
+				[
+					{x : Game.MainData.width*(1/3)-300, y : 20+Map.marginTop, direction : 1},
+					{x : Game.MainData.width*(2/3)+300, y : 20+Map.marginTop, direction : 0}
+				],
+				ItemsSpawners :
+				[
+					{x : 80, y : 150+Map.marginTop},
+					{x : Game.MainData.width-80, y : 150+Map.marginTop},
+					{x : 400, y : 250+Map.marginTop},
+					{x : Game.MainData.width-400, y : 250+Map.marginTop},
+					{x : 200, y : 470+Map.marginTop},
+					{x : Game.MainData.width-200, y : 470+Map.marginTop},
+					{x : 115, y : 730+Map.marginTop},
+					{x : Game.MainData.width-115, y : 730+Map.marginTop},
+					{x : 400, y : 610+Map.marginTop},
+					{x : Game.MainData.width-400, y : 610+Map.marginTop},
+					{x : 620, y : 365+Map.marginTop}
+				],
+				ExitPosition :
+				{
+					x : Game.MainData.width/2-20, y : (Game.MainData.height-80)
+				},
+				lifes : 9,
+				CollideId :
+				{
+					min : 300,
+					max : 400
+				}
 			}
 		};
 
 
-		Map.CurrentMap = Map.Maps.test_map;
+		Map.CurrentMap = Map.Maps.map1;
 
 		Map.Spawners = [];
 		
@@ -101,8 +172,8 @@ class Map
 		Map.map.Layers.collide_ground.alpha = 0;
 		Map.map.Layers.collide_wall.alpha = 0;
 
-		Map.map.setCollisionBetween(4300, 4400, true, Map.map.Layers.collide_ground);
-		Map.map.setCollisionBetween(4300, 4400, true, Map.map.Layers.collide_wall);
+		Map.map.setCollisionBetween(Map.CurrentMap.CollideId.min, Map.CurrentMap.CollideId.max, true, Map.map.Layers.collide_ground);
+		Map.map.setCollisionBetween(Map.CurrentMap.CollideId.min, Map.CurrentMap.CollideId.max, true, Map.map.Layers.collide_wall);
 
 		Spawner.staticConstructor();
 

@@ -1,27 +1,25 @@
 /**
  * Class slow
  * */
-class Slow extends Skill
+class Bomb extends Skill
 {
 	constructor()
 	{
-		super('Slow', 5000, 250);
+		super('Bomb', 1000, 400);
 	};
 
 	activate(_Player)
 	{
-
 		if (super.activate(_Player))
 		{
+			super.activate();
+
 			this.isActivated = true;
 			_Player.mana -= this.price;
 
-			Spawner.currentTrouble = 'slow';
-
-			//Update enemy speed
-			for (let Enemy of Map.EnemiesGroup.children)
+			for (let i = Map.EnemiesGroup.children.length-1; i >= 0; i--)
 			{
-				Enemy.Enemy.speed /= 2;
+				Map.EnemiesGroup.children[i].Enemy.destroy();
 			}
 
 			Game.Main.time.events.add(this.duration, this.deactivate, this);
@@ -33,11 +31,5 @@ class Slow extends Skill
 		super.deactivate();
 
 		this.isActivated = false;
-		Spawner.currentTrouble = null;
-
-		for (let Enemy of Map.EnemiesGroup.children)
-		{
-			Enemy.Enemy.speed *= 2;
-		}
 	}
 }

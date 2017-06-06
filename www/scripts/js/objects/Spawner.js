@@ -81,6 +81,6 @@ class Spawner
 
 	static setNewWave()
 	{
-		Spawner.maxEnemies = Game.mainScore+1;
+		Spawner.maxEnemies = (Game.mainScore+1)*Game.nbPlayers;
 	}
 }

@@ -23,6 +23,8 @@ class Weapon
 			Item.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
 			Item.fireAngle = 0;
 		}
+
+		Game.Main.world.bringToTop(Game.PlayersGroup);
 	};
 
 	update()

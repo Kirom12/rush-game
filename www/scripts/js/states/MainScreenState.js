@@ -1,7 +1,7 @@
 /**
- * Class PlayerChoiceState
+ * Class MainScreenState
  * */
-class PlayerChoiceState
+class MainScreenState
 {
 	constructor()
 	{

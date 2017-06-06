@@ -28,8 +28,11 @@ class Game
 		Game.Debug =
 		{
 			god : false,
-			mousePosition : false
+			mousePosition : false,
+			skillGod : false
 		}
+
+		Game.multiplayer = false;
 		
 		Game.Text = {};
 		Game.Text.Style =
@@ -50,14 +53,20 @@ class Game
 			},
 			PlayerScore :
 			{
-				font: "26px Arial",
+				font: "20px Arial",
 				fill: "#ff0044",
 				align: "center"
 			},
-			PlayerMana :
+			PlayerManaText :
 			{
-				font: "16px Arial",
-				fill: "#ff0044",
+				font: "12px Arial",
+				fill: "white",
+				align: "center"
+			},
+			PlayerManaValue :
+			{
+				font: "12px Arial",
+				fill: "white",
 				align: "center"
 			},
 			GameOver : 
@@ -65,6 +74,49 @@ class Game
 				font: "64px Arial",
 				fill: "#ff0044",
 				align: "center"
+			},
+			Skills :
+			{
+				font: "14px Arial",
+				fill: "white",
+				align: "center"
+			},
+			SkillCenterText :
+			{
+				font: "84px Arial",
+				fill: "#ff0044",
+				align: "center"
+			},
+			SkillCornerText :
+			{
+				font: "20px Arial",
+				fill: "#ff0044",
+				align: "center"
+			},
+			PlayerStatus :
+			{
+				font: "16px Arial",
+				fill: "#ff0044",
+				align: "center"
+			}
+		}
+
+		Game.BarConfig =
+		{
+			Mana :
+			{
+				width: 100,
+				height: 10,
+				x: 0,
+				y: 0,
+				bg: {
+					color: '#651828'
+				},
+				bar: {
+					color: 'blue'
+				},
+				animationDuration: 200,
+				flipped: false
 			}
 		}
 	};
@@ -73,6 +125,8 @@ class Game
 	{
 		//Map
 		Game.Main.load.tilemap('map1', 'assets/maps/map1.json', null, Phaser.Tilemap.TILED_JSON);
+		Game.Main.load.tilemap('map2', 'assets/maps/map2.json', null, Phaser.Tilemap.TILED_JSON);
+		Game.Main.load.tilemap('map3', 'assets/maps/map3.json', null, Phaser.Tilemap.TILED_JSON);
 
 		//Map tilesets
 		Game.Main.load.image('world-sp-0', 'assets/tilesets/world-sp-0.png');
@@ -87,6 +141,7 @@ class Game
 		Game.Main.load.spritesheet('fatty-monster', 'assets/characters/fatty.png', 48, 48);
 		Game.Main.load.spritesheet('runner-monster', 'assets/characters/runner.png', 32, 32);
 		Game.Main.load.spritesheet('cat', 'assets/characters/cat.png', 43, 48);
+		Game.Main.load.spritesheet('player', 'assets/characters/player.png', 80, 64);
 
 		Game.Main.load.spritesheet('explosion', 'assets/anims/explosions.png', 32, 32);
 		Game.Main.load.spritesheet('big-explosion', 'assets/anims/big-explosion.png', 96, 96);

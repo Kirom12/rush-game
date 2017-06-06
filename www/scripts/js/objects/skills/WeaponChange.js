@@ -1,27 +1,23 @@
 /**
  * Class slow
  * */
-class Slow extends Skill
+class WeaponChange extends Skill
 {
 	constructor()
 	{
-		super('Slow', 5000, 250);
+		super('Weapon', 1000, 400);
 	};
 
 	activate(_Player)
 	{
-
 		if (super.activate(_Player))
 		{
 			this.isActivated = true;
 			_Player.mana -= this.price;
 
-			Spawner.currentTrouble = 'slow';
-
-			//Update enemy speed
-			for (let Enemy of Map.EnemiesGroup.children)
+			for (let Player of Game.PlayersGroup.children)
 			{
-				Enemy.Enemy.speed /= 2;
+				Player.Player.switchWeapon(Random.rangeInt(0, 7, true));
 			}
 
 			Game.Main.time.events.add(this.duration, this.deactivate, this);
@@ -33,11 +29,5 @@ class Slow extends Skill
 		super.deactivate();
 
 		this.isActivated = false;
-		Spawner.currentTrouble = null;
-
-		for (let Enemy of Map.EnemiesGroup.children)
-		{
-			Enemy.Enemy.speed *= 2;
-		}
 	}
 }

@@ -16,8 +16,10 @@ class Player
 
 		let bmd = Graphics.drawRect(30, 30, _color);
 
-		this.Sprite = Game.Main.add.sprite(this.x, this.y, bmd);
+		this.Sprite = Game.Main.add.sprite(this.x, this.y, 'player');
 		Game.Main.physics.enable(this.Sprite, Phaser.Physics.ARCADE);
+
+		this.Sprite.scale.setTo(0.6);
 
 		this.Sprite.anchor.setTo(0.5);
 		// this.Sprite.body.collideWorldBounds = true;
@@ -38,7 +40,8 @@ class Player
 
 		this.Skills =
 		{
-			Slow : new Slow()
+			Slow : new Slow(),
+			WeaponChange : new WeaponChange()
 		}
 
 		this.Buttons = _Buttons;
@@ -56,25 +59,49 @@ class Player
 
 		this.getNewItem = true;
 
-		this.maxScore = 200;
+		this.maxScore = 600;
 		this.score = 0;
 		this.mana = 0;
+
+		this.orientation = 'E';
+
+		this.Sprite.tint = '0x'+_color.substring(1);
+
+		//Anmations
+		this.Sprite.animations.add('idle-W', [31], 5, true);
+		this.Sprite.animations.add('idle-E', [8], 5, true);
+		this.Sprite.animations.add('left', [16, 17, 18 , 19, 20 , 21, 22, 24, 25, 26, 27, 28, 29, 30], 20, true);
+		this.Sprite.animations.add('right', [0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 15], 20, true);
 
 		//Add player to the group
 		Game.PlayersGroup.add(this.Sprite);
 		Game.PlayersGroup.children[Game.PlayersGroup.children.indexOf(this.Sprite)].Player = this;
 
 		Game.Text.Style.PlayerScore.fill = _color;
-		Game.Text.Style.PlayerMana.fill = _color;
 
 		//Text
 		this.Texts =
 		{
-			Score : Game.Main.add.text((Game.MainData.width/5)*(Game.PlayersGroup.children.indexOf(this.Sprite)+1), 20, this.name + ' - ' +this.score, Game.Text.Style.PlayerScore),
-			Mana : Game.Main.add.text((Game.MainData.width/5)*(Game.PlayersGroup.children.indexOf(this.Sprite)+1), 40, this.mana, Game.Text.Style.PlayerMana)
+			Score : Game.Main.add.text((Game.MainData.width/3)*(this.id+1), 18, this.name + ' - ' +this.score, Game.Text.Style.PlayerScore),
+			ManaText : Game.Main.add.text((Game.MainData.width/3)*(this.id+1)-80, 35, 'Magic', Game.Text.Style.PlayerManaText),
+			ManaValue : Game.Main.add.text((Game.MainData.width/3)*(this.id+1)+60, 25, this.mana + '/' + this.maxScore, Game.Text.Style.PlayerManaValue),
+			Skills : Game.Main.add.text((Game.MainData.width/3)*(this.id+1), 55, 'Slow (' + String.fromCharCode(this.Buttons.slow.keyCode) + ')(300) Weapon(' + String.fromCharCode(this.Buttons.weapon.keyCode) + ')(400) Other(' + String.fromCharCode(this.Buttons.other.keyCode) + ')(?)', Game.Text.Style.Skills),
+			PlayerStatus : Game.Main.add.text(0,0, '', Game.Text.Style.PlayerStatus)
 		};
 
 		this.Texts.Score.anchor.set(0.5);
+		this.Texts.ManaText.anchor.set(0.5);
+		this.Texts.Skills.anchor.set(0.5);
+		this.Texts.PlayerStatus.anchor.set(0.5);
+		//this.Texts.ManaValue.anchor.set(0.5);
+
+		this.Texts.PlayerStatus.alpha = 0;
+
+		//Bar
+		this.ManaBar = new HealthBar(Game.Main, Game.BarConfig.Mana);
+		this.ManaBar.setPosition((Game.MainData.width/3)*(this.id+1), 33);
+
+		this.ManaBar.setPercent((this.mana/this.maxScore)*100);
 	};
 
 	update()
@@ -122,20 +149,43 @@ class Player
 		this.Sprite.kill();
 	};
 
+	displayMessage(_text)
+	{
+		this.Texts.PlayerStatus.alpha = 1;
+
+		this.Texts.PlayerStatus.setText(_text);
+
+		Game.Main.time.events.add(Phaser.Timer.SECOND * 0.5, function()
+		{
+			this.Texts.PlayerStatus.alpha = 0;
+		}, this);
+	}
+
 	move()
 	{
+		this.Texts.PlayerStatus.position.x = this.Sprite.position.x;
+		this.Texts.PlayerStatus.position.y = this.Sprite.position.y-25;
+
 		this.Sprite.body.velocity.x = 0;
 		
 		//MOVEMENTS
 		if (this.Buttons.left.isDown)
 		{
+			this.Sprite.animations.play('left');
 			this.Sprite.body.velocity.x -= this.speed;
-			this.Weapon.setOrientation('W');
+			this.orientation = 'W';
+			this.Weapon.setOrientation(this.orientation);
 		}
-		if (this.Buttons.right.isDown)
+		else if (this.Buttons.right.isDown)
 		{
+			this.Sprite.animations.play('right');
 			this.Sprite.body.velocity.x += this.speed;
-			this.Weapon.setOrientation('E');
+			this.orientation = 'E';
+			this.Weapon.setOrientation(this.orientation);
+		}
+		else
+		{
+			this.Sprite.animations.play('idle-'+this.orientation);
 		}
 
 		//SKILLS
@@ -143,6 +193,10 @@ class Player
 		{
 			this.Skills.Slow.activate(this);
 		}
+
+		if (this.Buttons.weapon.isDown)
+		{
+			this.Skills.WeaponChange.activate(this);		}
 
 		//FIRE
 		if (this.Buttons.fire.isDown)
@@ -183,7 +237,8 @@ class Player
 	GUI()
 	{
 		this.Texts.Score.setText(this.name + ' - ' +this.score);
-		this.Texts.Mana.setText(this.mana);
+		this.ManaBar.setPercent((this.mana/this.maxScore)*100);
+		this.Texts.ManaValue.setText(this.mana + '/' + this.maxScore);
 	};
 
 	increaseScore(_points)
