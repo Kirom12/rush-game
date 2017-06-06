@@ -149,13 +149,15 @@ class Game
 		//Items
 		Game.Main.load.image('crate', 'assets/imgs/crate.png');
 
-		//Tilesets
+		//Backgrounds
+		Game.Main.load.image('title-screen', 'assets/imgs/title-screen.jpg');
 	};
 
 	static create()
 	{
 		Game.Main.state.add('play', PlayState);
-		Game.Main.state.start('play');
+		Game.Main.state.add('title-screen', TitleScreenState);
+		Game.Main.state.start('title-screen');
 	};
 
 	static update()

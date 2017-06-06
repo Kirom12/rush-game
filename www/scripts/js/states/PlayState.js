@@ -37,7 +37,7 @@ class PlayState
 			down : Game.Main.input.keyboard.addKey(40),
 			right : Game.Main.input.keyboard.addKey(39),
 			left : Game.Main.input.keyboard.addKey(37),
-			fire : Game.Main.input.keyboard.addKey(187),
+			fire : Game.Main.input.keyboard.addKey(191),
 			slow : Game.Main.input.keyboard.addKey(Phaser.Keyboard.K),
 			weapon : Game.Main.input.keyboard.addKey(Phaser.Keyboard.L),
 			other : Game.Main.input.keyboard.addKey(Phaser.Keyboard.M)
