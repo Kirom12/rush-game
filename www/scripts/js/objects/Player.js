@@ -149,8 +149,10 @@ class Player
 		this.Sprite.kill();
 	};
 
-	displayMessage(_text)
+	displayMessage(_text, _color = '#ff0044')
 	{
+		this.Texts.PlayerStatus.fill = _color;
+
 		this.Texts.PlayerStatus.alpha = 1;
 
 		this.Texts.PlayerStatus.setText(_text);

@@ -80,8 +80,14 @@ class Enemy
 		//Check life
 		if (this.life <= 0)
 		{
+			Game.Sounds.Die.play();
 			this.destroy(_Player);
 		}
+		else
+		{
+			Game.Sounds.Hurt.play();		
+		}
+
 	};
 
 	update()
@@ -100,13 +106,18 @@ class Enemy
 
 	collideEnemyGate(_Sprite)
 	{
-		if (Map.mapLifes > 1)
+		Game.Sounds.Lose.play();
+
+		if (!Game.Debug.god)
 		{
-			Map.mapLifes--;
-		}
-		else
-		{
-			PlayState.gameOver();
+			if (Map.mapLifes > 1)
+			{
+				Map.mapLifes--;
+			}
+			else
+			{
+				PlayState.gameOver();
+			}
 		}
 
 		Map.Text.MapLifes.setText(Map.mapLifes);

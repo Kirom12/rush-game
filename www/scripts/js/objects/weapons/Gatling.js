@@ -9,7 +9,7 @@ class Gatling extends Weapon
 		[
 			Game.Main.add.weapon(50, Graphics.drawRect(8, 8, '#FFF')),
 			Game.Main.add.weapon(50, Graphics.drawRect(8, 8, '#FFF'))
-		], _Player);
+		], _Player, 'gatling');
 
 		this.Weapons[0].trackSprite(_Player.Sprite, 0, -4, false);
 		this.Weapons[1].trackSprite(_Player.Sprite, 0, 4, false);

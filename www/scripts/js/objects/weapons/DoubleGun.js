@@ -9,7 +9,7 @@ class DoubleGun extends Weapon
 		[
 			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF')),
 			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#B00B55'))
-		], _Player);
+		], _Player, 'gun');
 
 		this.Weapons[0].trackSprite(_Player.Sprite, 0, 0, false);
 		this.Weapons[1].trackSprite(_Player.Sprite, 0, 0, false);

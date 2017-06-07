@@ -87,6 +87,8 @@ class ItemsController
 
 		Map.checkChangeStyle();
 
+		Game.Sounds.NewWave.play();
+
 		//Regenerate random item
 		ItemsController.generateItems();
 	}

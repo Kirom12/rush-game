@@ -17,6 +17,25 @@ class PlayState
 	{
 		Log.print("playState - create");
 
+		//Set sound
+		Game.Sounds =
+		{
+			Hurt : Game.Main.add.audio('hurt'),
+			Explosion : Game.Main.add.audio('explosion'),
+			NewWave : Game.Main.add.audio('new-wave', 0.8),
+			Lose : Game.Main.add.audio('lose'),
+			Die : Game.Main.add.audio('die', 0.8)
+		};
+
+		Game.Musics =
+		{
+			M1 : Game.Main.add.audio('M1', 0.4, true),
+			M2 : Game.Main.add.audio('M2', 0.2, true),
+			M3 : Game.Main.add.audio('M3', 0.2, true),
+			M4 : Game.Main.add.audio('M4', 0.3, true),
+			Main : Game.Main.add.audio('main', 0.3, true)
+		}
+
 		Game.Main.physics.startSystem(Phaser.Physics.ARCADE);
 		Game.Main.world.setBounds(0,0, Game.MainData.width, Game.MainData.height);
 		Game.Main.physics.arcade.gravity.y = 0;
@@ -66,6 +85,10 @@ class PlayState
 		Game.Text.Waves = Game.Main.add.text(Game.MainData.width/2, 50, 'wave', Game.Text.Style.Waves);
 		Game.Text.MainScore.anchor.set(0.5);
 		Game.Text.Waves.anchor.set(0.5);
+
+
+		//Start music
+		Game.Musics.Main.play();
 
 		//PlayState.gameOver();
 	};

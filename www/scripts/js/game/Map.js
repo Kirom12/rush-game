@@ -112,6 +112,42 @@ class Map
 			}
 		};
 
+		//Styles
+		Map.StyleChangeData =
+		{
+			currentWave: 0,
+			changeEvery: 5,
+			currentStyle : 0
+		}
+
+		Map.Styles =
+		[
+			{
+				name : 'Dirt',
+				bgColor : '#4488a6',
+				tileset : 'world-sp-0',
+				Music : Game.Musics.Main
+			},
+			{
+				name : 'Purple',
+				bgColor : '#2b2544',
+				tileset : 'world-sp-1',
+				Music : Game.Musics.M1 //Change music
+			},
+			{
+				name : 'Stone',
+				bgColor : '#141E42',
+				tileset : 'world-sp-2',
+				Music : Game.Musics.M3
+			},
+			{
+				name : 'Sand',
+				bgColor : '#d6ae1d',
+				tileset : 'world-sp-3',
+				Music : Game.Musics.M2 //Change music
+			}
+		]
+
 
 		switch(Game.currentMap)
 		{
@@ -132,12 +168,6 @@ class Map
 
 		Map.mapLifes = Map.CurrentMap.lifes;
 
-		Map.StyleChangeData =
-		{
-			current: 0,
-			changeEvery: 5,
-			nbStyles: 5
-		}
 
 		//Text
 		Map.Text = 
@@ -199,14 +229,23 @@ class Map
 		Map.Text.MapLifes.anchor.set(0.5);
 	}
 
-	static changeStyle(_style)
+	static changeStyle(_styleId, _lastStyleId)
 	{
 		Map.map.Layers.main.destroy();
 		Map.map.Layers.top.destroy();
 
-		Map.map.addTilesetImage('world-sp-0', _style);
+		//Change music
+		Map.Styles[_lastStyleId].Music.stop();
+		Map.Styles[_styleId].Music.play();
+
+		//Change background
+		Game.Main.stage.backgroundColor = Map.Styles[_styleId].bgColor;
+
+		//Change tileset
+		Map.map.addTilesetImage('world-sp-0', Map.Styles[_styleId].tileset);
 		Map.map.addTilesetImage('world-sp-1');
 
+		//Reorganise layers
 		Map.map.Layers.main = Map.map.createLayer('main');
 		Game.Main.world.bringToTop(Map.EnemiesGroup);
 		Map.map.Layers.top =  Map.map.createLayer('top');
@@ -217,14 +256,22 @@ class Map
 
 	static checkChangeStyle()
 	{
+		let random = 0;
 
-		Map.StyleChangeData.current++;
+		Map.StyleChangeData.currentWave++;
 
-		if (Map.StyleChangeData.current >= Map.StyleChangeData.changeEvery)
+		if (Map.StyleChangeData.currentWave >= Map.StyleChangeData.changeEvery)
 		{
-			Map.StyleChangeData.current = 0;
+			Map.StyleChangeData.currentWave = 0;
 
-			Map.changeStyle('world-sp-' + Random.rangeInt(0, Map.StyleChangeData.nbStyles-1));
+			while (random === Map.StyleChangeData.currentStyle)
+			{
+				random = Random.rangeInt(0, Map.Styles.length-1, true);
+			}
+
+			Map.changeStyle(random, Map.StyleChangeData.currentStyle);
+
+			Map.StyleChangeData.currentStyle = random;
 		}
 	}
 }

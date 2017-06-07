@@ -3,9 +3,9 @@
  * */
 class ExplosiveWeapon extends Weapon
 {
-	constructor(_Weapons, _Player)
+	constructor(_Weapons, _Player, _Sound)
 	{
-		super(_Weapons, _Player);
+		super(_Weapons, _Player, _Sound);
 
 		this.radius = 90;
 		this.explosionTime = 200;
@@ -57,6 +57,8 @@ class ExplosiveWeapon extends Weapon
 
 	explode(_x, _y)
 	{
+		Game.Sounds.Explosion.play();
+
 		this.ExplosionSprite.animations.play('explode');
 		this.ExplosionSprite.position.x = _x;
 		this.ExplosionSprite.position.y = _y;

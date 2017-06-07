@@ -12,7 +12,7 @@ class Shotgun extends Weapon
 			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF')),
 			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF')),
 			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF'))
-		], _Player);
+		], _Player, 'shotgun');
 
 		this.WeaponAngles = [2, 0, -2, -4, -6]
 

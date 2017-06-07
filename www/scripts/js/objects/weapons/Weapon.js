@@ -4,11 +4,24 @@
 //Todo : 
 class Weapon
 {
-	constructor(_Weapons, _Player)
+	constructor(_Weapons, _Player, _Sound = null, _volume = 0.8)
 	{
 		this.damage = 100;
 		this.Weapons = _Weapons;
 		this.Weapon = this.Weapons[0];
+
+		if (_Sound)
+		{
+			this.Sound =
+			{
+				fx : Game.Main.add.sound(_Sound, _volume),
+				time : 0
+			}
+		}
+		else
+		{
+			this.Sound = null;
+		}
 
 		this.Player = _Player;
 
@@ -56,6 +69,11 @@ class Weapon
 		{
 			Item.fire();
 		}
+
+		if (this.Sound)
+		{
+			this.playSound();
+		}
 	};
 
 	destroy()
@@ -83,5 +101,19 @@ class Weapon
 				return false;
 			}
 		}
+	};
+
+	playSound()
+	{
+		if (Date.now() > this.Sound.time+this.Weapon.fireRate)
+		{
+			this.Sound.time = Date.now();
+			this.Sound.fx.play();
+		}
+	};
+
+	soundStopped()
+	{
+		
 	};
 }

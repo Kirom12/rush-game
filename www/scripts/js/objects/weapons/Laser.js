@@ -8,7 +8,7 @@ class Laser extends Weapon
 		super(
 		[
 			Game.Main.add.weapon(10, Graphics.drawRect(12, 8, '#FFF'))
-		], _Player);
+		], _Player, 'laser');
 
 		this.Weapon.trackSprite(_Player.Sprite, 0, 0, false);
 

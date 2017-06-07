@@ -8,7 +8,7 @@ class RocketLauncher extends ExplosiveWeapon
 		super(
 		[
 			Game.Main.add.weapon(10, Graphics.drawRect(12, 12, '#FFF'))
-		], _Player);
+		], _Player, 'rocket-launcher');
 
 		this.Weapon.trackSprite(_Player.Sprite, 0, 0, false);
 

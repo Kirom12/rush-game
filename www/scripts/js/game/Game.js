@@ -152,6 +152,28 @@ class Game
 		//Backgrounds
 		Game.Main.load.image('title-screen', 'assets/imgs/title-screen.jpg');
 		Game.Main.load.image('map-screen', 'assets/imgs/map-screen.jpg');
+
+		//Sounds
+		Game.Main.load.audio('gun', 'assets/audio/effects/gun.wav');
+		Game.Main.load.audio('laser', 'assets/audio/effects/laser.wav');
+		Game.Main.load.audio('grenade-launcher', 'assets/audio/effects/grenade.wav');
+		Game.Main.load.audio('gatling', 'assets/audio/effects/automatic-rifle.wav');
+		Game.Main.load.audio('shotgun', 'assets/audio/effects/shotgun.wav');
+		Game.Main.load.audio('rocket-launcher', 'assets/audio/effects/rocket-launcher.wav');
+		Game.Main.load.audio('automatic-rifle', 'assets/audio/effects/automatic-rifle.wav');
+
+		Game.Main.load.audio('explosion', 'assets/audio/effects/explosion-1.wav');
+		Game.Main.load.audio('hurt', 'assets/audio/effects/hurt.wav');
+		Game.Main.load.audio('new-wave', 'assets/audio/effects/new-wave.wav');
+		Game.Main.load.audio('lose', 'assets/audio/effects/lose.wav');
+		Game.Main.load.audio('die', 'assets/audio/effects/die.wav');
+
+		//Music
+		Game.Main.load.audio('M1', 'assets/audio/music/Ascending.mp3');
+		Game.Main.load.audio('M2', 'assets/audio/music/BC-B-3.mp3');
+		Game.Main.load.audio('M3', 'assets/audio/music/BC-Battle-Special.mp3');
+		Game.Main.load.audio('M4', 'assets/audio/music/BC-Epic-Song.mp3');
+		Game.Main.load.audio('main', 'assets/audio/music/main.mp3');
 	};
 
 	static create()
