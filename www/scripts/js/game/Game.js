@@ -27,12 +27,11 @@ class Game
 
 		Game.Debug =
 		{
-			god : false,
+			god : true,
 			mousePosition : false,
-			skillGod : false
+			skillGod : false,
+			startNow : true
 		}
-
-		Game.multiplayer = false;
 		
 		Game.Text = {};
 		Game.Text.Style =
@@ -119,6 +118,17 @@ class Game
 				flipped: false
 			}
 		}
+
+		Game.multiplayer = false;
+		Game.currentMap = 'map1';
+
+		Game.Volume =
+		{
+			effects : 1,
+			music : 0
+		}
+
+		Game.IconButtons = {};
 	};
 
 	static preload()
@@ -153,6 +163,9 @@ class Game
 		Game.Main.load.image('title-screen', 'assets/imgs/title-screen.jpg');
 		Game.Main.load.image('map-screen', 'assets/imgs/map-screen.jpg');
 
+		//Icons
+		Game.Main.load.image('icon-full-screen', 'assets/icons/full-screen.png');
+
 		//Sounds
 		Game.Main.load.audio('gun', 'assets/audio/effects/gun.wav');
 		Game.Main.load.audio('laser', 'assets/audio/effects/laser.wav');
@@ -178,11 +191,20 @@ class Game
 
 	static create()
 	{
+		Game.Main.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+
 		Game.Main.state.add('play', PlayState);
 		Game.Main.state.add('title-screen', TitleScreenState);
 		Game.Main.state.add('map-screen', MapScreenState);
 
-		Game.Main.state.start('title-screen');
+		if (Game.Debug.startNow)
+		{
+			Game.Main.state.start('play');
+		}
+		else
+		{
+			Game.Main.state.start('title-screen');
+		}
 	};
 
 	static update()
@@ -193,5 +215,29 @@ class Game
 	static render()
 	{
 		
+	};
+
+	static setFullScreen()
+	{
+		if (Game.Main.scale.isFullScreen)
+		{
+			Game.Main.scale.stopFullScreen();
+		}
+		else
+		{
+			Game.Main.scale.startFullScreen(false);
+		}
+	};
+
+	static createIconsElements()
+	{
+
+		//Destroy for replacement
+		if (Game.IconButtons.FullScreen) Game.IconButtons.FullScreen.destroy();
+
+		Game.IconButtons.FullScreen = Game.Main.add.button(Game.MainData.width-40, Game.MainData.height-40, 'icon-full-screen', Game.setFullScreen, this, 2, 1, 0);
+	
+		Game.IconButtons.FullScreen.anchor.setTo(0.5);
+		Game.IconButtons.FullScreen.scale.setTo(0.2);
 	};
 }

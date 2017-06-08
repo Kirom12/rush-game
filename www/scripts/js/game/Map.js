@@ -19,20 +19,6 @@ class Map
 					{x : Game.MainData.width*(1/3), y : 20+Map.marginTop, direction : 0},
 					{x : Game.MainData.width*(2/3), y : 20+Map.marginTop, direction : 1}
 				],
-				ItemsSpawners :
-				[
-					{x : 80, y : 150+Map.marginTop},
-					{x : Game.MainData.width-80, y : 150+Map.marginTop},
-					{x : 400, y : 250+Map.marginTop},
-					{x : Game.MainData.width-400, y : 250+Map.marginTop},
-					{x : 200, y : 470+Map.marginTop},
-					{x : Game.MainData.width-200, y : 470+Map.marginTop},
-					{x : 115, y : 730+Map.marginTop},
-					{x : Game.MainData.width-115, y : 730+Map.marginTop},
-					{x : 400, y : 610+Map.marginTop},
-					{x : Game.MainData.width-400, y : 610+Map.marginTop},
-					{x : 620, y : 365+Map.marginTop}
-				],
 				ExitPosition :
 				{
 					x : Game.MainData.width/2-20, y : (Game.MainData.height-80)
@@ -51,20 +37,6 @@ class Map
 				[
 					{x : Game.MainData.width*(1/3)-300, y : 20+Map.marginTop, direction : 1},
 					{x : Game.MainData.width*(2/3)+300, y : 20+Map.marginTop, direction : 0}
-				],
-				ItemsSpawners :
-				[
-					{x : 80, y : 150+Map.marginTop},
-					{x : Game.MainData.width-80, y : 150+Map.marginTop},
-					{x : 400, y : 250+Map.marginTop},
-					{x : Game.MainData.width-400, y : 250+Map.marginTop},
-					{x : 200, y : 470+Map.marginTop},
-					{x : Game.MainData.width-200, y : 470+Map.marginTop},
-					{x : 115, y : 730+Map.marginTop},
-					{x : Game.MainData.width-115, y : 730+Map.marginTop},
-					{x : 400, y : 610+Map.marginTop},
-					{x : Game.MainData.width-400, y : 610+Map.marginTop},
-					{x : 620, y : 365+Map.marginTop}
 				],
 				ExitPosition :
 				{
@@ -85,20 +57,6 @@ class Map
 					{x : Game.MainData.width*(1/3)-300, y : 20+Map.marginTop, direction : 1},
 					{x : Game.MainData.width*(2/3)+300, y : 20+Map.marginTop, direction : 0}
 				],
-				ItemsSpawners :
-				[
-					{x : 80, y : 150+Map.marginTop},
-					{x : Game.MainData.width-80, y : 150+Map.marginTop},
-					{x : 400, y : 250+Map.marginTop},
-					{x : Game.MainData.width-400, y : 250+Map.marginTop},
-					{x : 200, y : 470+Map.marginTop},
-					{x : Game.MainData.width-200, y : 470+Map.marginTop},
-					{x : 115, y : 730+Map.marginTop},
-					{x : Game.MainData.width-115, y : 730+Map.marginTop},
-					{x : 400, y : 610+Map.marginTop},
-					{x : Game.MainData.width-400, y : 610+Map.marginTop},
-					{x : 620, y : 365+Map.marginTop}
-				],
 				ExitPosition :
 				{
 					x : Game.MainData.width/2-20, y : (Game.MainData.height-80)
@@ -112,41 +70,64 @@ class Map
 			}
 		};
 
+		Map.ItemsSpawners =
+		[
+			{x : 80, y : 150+Map.marginTop},
+			{x : Game.MainData.width-80, y : 150+Map.marginTop},
+			{x : 400, y : 250+Map.marginTop},
+			{x : Game.MainData.width-400, y : 250+Map.marginTop},
+			{x : 200, y : 470+Map.marginTop},
+			{x : Game.MainData.width-200, y : 470+Map.marginTop},
+			{x : 115, y : 730+Map.marginTop},
+			{x : Game.MainData.width-115, y : 730+Map.marginTop},
+			{x : 400, y : 610+Map.marginTop},
+			{x : Game.MainData.width-400, y : 610+Map.marginTop},
+			{x : 620, y : 365+Map.marginTop}
+		];
+
 		//Styles
 		Map.StyleChangeData =
 		{
 			currentWave: 0,
 			changeEvery: 5,
 			currentStyle : 0
-		}
+		};
 
 		Map.Styles =
 		[
 			{
 				name : 'Dirt',
-				bgColor : '#4488a6',
+				bgColor : '#3c7993',
 				tileset : 'world-sp-0',
-				Music : Game.Musics.Main
+				Music : Game.Musics.Main,
+				effect : null,
+				duration : 4
 			},
 			{
 				name : 'Purple',
-				bgColor : '#2b2544',
+				bgColor : '#141E42', //#141E42
 				tileset : 'world-sp-1',
-				Music : Game.Musics.M1 //Change music
-			},
-			{
-				name : 'Stone',
-				bgColor : '#141E42',
-				tileset : 'world-sp-2',
-				Music : Game.Musics.M3
+				Music : Game.Musics.M3,
+				effect : 'fat-monster',
+				duration : 4
 			},
 			{
 				name : 'Sand',
-				bgColor : '#d6ae1d',
+				bgColor : '#c68b15',
 				tileset : 'world-sp-3',
-				Music : Game.Musics.M2 //Change music
+				Music : Game.Musics.M2, //Change music
+				effect : 'full-runner',
+				duration : 2
+			},
+			{
+				name : 'Stone',
+				bgColor : '#1e1a1a',
+				tileset : 'world-sp-2',
+				Music : Game.Musics.M3, //Change music
+				effect : 'full-fatty',
+				duration : 3
 			}
-		]
+		];
 
 
 		switch(Game.currentMap)
@@ -172,6 +153,7 @@ class Map
 		//Text
 		Map.Text = 
 		{
+			
 			Style : 
 			{
 				MapLifes :
@@ -181,7 +163,7 @@ class Map
 					align: "center"
 				}
 			}
-		}
+		};
 	}
 
 	static create()
@@ -234,9 +216,13 @@ class Map
 		Map.map.Layers.main.destroy();
 		Map.map.Layers.top.destroy();
 
+
 		//Change music
-		Map.Styles[_lastStyleId].Music.stop();
-		Map.Styles[_styleId].Music.play();
+		Map.Styles[_lastStyleId].Music.Fx.pause();
+		Map.Styles[_styleId].Music.Fx.play('', 0, Game.Volume.music*Map.Styles[_styleId].Music.volume);
+
+		Spawner.styleEffect = Map.Styles[_styleId].effect;
+		Map.StyleChangeData.changeEvery = Map.Styles[_styleId].duration;
 
 		//Change background
 		Game.Main.stage.backgroundColor = Map.Styles[_styleId].bgColor;
@@ -252,6 +238,8 @@ class Map
 
 		Game.Main.world.bringToTop(ItemsController.ItemsGroup);
 		Game.Main.world.bringToTop(Game.PlayersGroup);
+
+		Game.createIconsElements();
 	}
 
 	static checkChangeStyle()

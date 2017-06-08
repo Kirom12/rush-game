@@ -54,10 +54,10 @@ class ItemsController
 		{
 			while (random === lastRand)
 			{
-				random = Math.round(Math.random()*(Map.CurrentMap.ItemsSpawners.length-1));
+				random = Math.round(Math.random()*(Map.ItemsSpawners.length-1));
 			}
 
-			new Item(Map.CurrentMap.ItemsSpawners[random].x, Map.CurrentMap.ItemsSpawners[random].y);
+			new Item(Map.ItemsSpawners[random].x, Map.ItemsSpawners[random].y);
 
 			lastRand = random;
 		}

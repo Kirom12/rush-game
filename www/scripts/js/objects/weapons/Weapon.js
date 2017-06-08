@@ -7,6 +7,8 @@ class Weapon
 	constructor(_Weapons, _Player, _Sound = null, _volume = 0.8)
 	{
 		this.damage = 100;
+		this.recoil = 8;
+
 		this.Weapons = _Weapons;
 		this.Weapon = this.Weapons[0];
 
@@ -37,6 +39,19 @@ class Weapon
 			Item.fireAngle = 0;
 		}
 
+		this.Particles =
+		{
+			WallHit : Particles.create(0, 0, 4),
+			EnemyHit : Particles.create(0, 0, 4),
+			Fire : Particles.create(0, 0, 10)
+		}
+
+		Particles.configure(this.Particles.WallHit, Graphics.drawRect(4, 4, '#FFF'), 1, 1.5);
+
+		Particles.configure(this.Particles.EnemyHit, Graphics.drawRect(4, 4, '#b00000'), 1, 1.5);
+
+		Particles.configure(this.Particles.Fire, Graphics.drawRect(4, 4, '#FFF'), 1, 1.5, null, 20);
+
 		Game.Main.world.bringToTop(Game.PlayersGroup);
 	};
 
@@ -53,11 +68,15 @@ class Weapon
 
 	collideBulletWall(_Bullet)
 	{
+		Particles.start(this.Particles.WallHit ,_Bullet.position.x, _Bullet.position.y, true, 200, null, 4);
+
 		_Bullet.kill();
 	};
 
 	collideEnemy(_Bullet, _Enemy)
 	{
+		Particles.start(this.Particles.EnemyHit ,_Bullet.position.x, _Bullet.position.y, true, 200, null, 4);
+
 		_Bullet.kill();
 
 		_Enemy.Enemy.hit(this.damage, this.Player);
@@ -109,6 +128,17 @@ class Weapon
 		{
 			this.Sound.time = Date.now();
 			this.Sound.fx.play();
+
+			if (this.Player.orientation === 'W')
+			{
+				this.Player.Sprite.position.x += this.recoil;
+				Particles.start(this.Particles.Fire ,this.Player.Sprite.position.x-40, this.Player.Sprite.position.y, true, 100, null, 4);
+			} 
+			else if (this.Player.orientation === 'E')
+			{
+				this.Player.Sprite.position.x -= this.recoil;
+				Particles.start(this.Particles.Fire ,this.Player.Sprite.position.x+40, this.Player.Sprite.position.y, true, 100, null, 4);
+			}
 		}
 	};
 

@@ -198,7 +198,8 @@ class Player
 
 		if (this.Buttons.weapon.isDown)
 		{
-			this.Skills.WeaponChange.activate(this);		}
+			this.Skills.WeaponChange.activate(this);
+		}
 
 		//FIRE
 		if (this.Buttons.fire.isDown)

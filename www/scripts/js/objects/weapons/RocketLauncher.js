@@ -7,14 +7,16 @@ class RocketLauncher extends ExplosiveWeapon
 	{
 		super(
 		[
-			Game.Main.add.weapon(10, Graphics.drawRect(12, 12, '#FFF'))
-		], _Player, 'rocket-launcher');
+			Game.Main.add.weapon(10, Graphics.drawRect(25, 12, '#FFF'))
+		], _Player, 'rocket-launcher', 0.3);
 
 		this.Weapon.trackSprite(_Player.Sprite, 0, 0, false);
 
 		this.Weapon.bulletSpeed = 800;
 		this.Weapon.fireRate = 500;
+
 		this.damage = 100;
+		this.recoil = 8;
 	};
 
 	update()

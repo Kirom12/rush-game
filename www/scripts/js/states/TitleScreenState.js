@@ -33,6 +33,8 @@ class TitleScreenState
 		this.Button.OnePlayer.alpha = 0;
 		this.Button.TwoPlayer.alpha = 0;
 		this.Button.Exit.alpha = 0;
+
+		Game.createIconsElements();
 	};
 
 	start(_multiplayer = false)

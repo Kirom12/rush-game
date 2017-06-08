@@ -7,11 +7,11 @@ class Shotgun extends Weapon
 	{
 		super(
 		[
-			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF')),
-			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF')),
-			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF')),
-			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF')),
-			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF'))
+			Game.Main.add.weapon(10, Graphics.drawRect(16, 6, '#FFF')),
+			Game.Main.add.weapon(10, Graphics.drawRect(16, 6, '#FFF')),
+			Game.Main.add.weapon(10, Graphics.drawRect(16, 6, '#FFF')),
+			Game.Main.add.weapon(10, Graphics.drawRect(16, 6, '#FFF')),
+			Game.Main.add.weapon(10, Graphics.drawRect(16, 6, '#FFF'))
 		], _Player, 'shotgun');
 
 		this.WeaponAngles = [2, 0, -2, -4, -6]
@@ -26,6 +26,7 @@ class Shotgun extends Weapon
 		}
 
 		this.damage = 50;
+		this.recoil = 15;
 	};
 
 	update()

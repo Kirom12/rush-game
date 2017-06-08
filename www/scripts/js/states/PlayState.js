@@ -29,11 +29,31 @@ class PlayState
 
 		Game.Musics =
 		{
-			M1 : Game.Main.add.audio('M1', 0.4, true),
-			M2 : Game.Main.add.audio('M2', 0.2, true),
-			M3 : Game.Main.add.audio('M3', 0.2, true),
-			M4 : Game.Main.add.audio('M4', 0.3, true),
-			Main : Game.Main.add.audio('main', 0.3, true)
+			M1 : 
+			{
+				Fx : Game.Main.add.audio('M1', 1, true),
+				volume : 1
+			},
+			M2 : 
+			{
+				Fx : Game.Main.add.audio('M2', 0.7, true),
+				volume : 0.7
+			},
+			M3 : 
+			{
+				Fx : Game.Main.add.audio('M3', 0.7, true),
+				volume : 0.5
+			},
+			M4 : 
+			{
+				Fx : Game.Main.add.audio('M4', 0.8, true),
+				volume : 0.8
+			},
+			Main : 
+			{
+				Fx : Game.Main.add.audio('main', 0.8, true),
+				volume : 0.8
+			}
 		}
 
 		Game.Main.physics.startSystem(Phaser.Physics.ARCADE);
@@ -86,11 +106,10 @@ class PlayState
 		Game.Text.MainScore.anchor.set(0.5);
 		Game.Text.Waves.anchor.set(0.5);
 
-
 		//Start music
-		Game.Musics.Main.play();
+		Game.Musics.Main.Fx.play('', 0, Game.Volume.music*Game.Musics.Main.volume);
 
-		//PlayState.gameOver();
+		Game.createIconsElements();
 	};
 
 	update()

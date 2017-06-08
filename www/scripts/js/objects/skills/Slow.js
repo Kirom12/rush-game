@@ -22,6 +22,8 @@ class Slow extends Skill
 			for (let Enemy of Map.EnemiesGroup.children)
 			{
 				Enemy.Enemy.speed /= 2;
+				Enemy.Enemy.Sprite.tint = 0x7dd9f2;
+
 			}
 
 			Game.Main.time.events.add(this.duration, this.deactivate, this);
@@ -38,6 +40,7 @@ class Slow extends Skill
 		for (let Enemy of Map.EnemiesGroup.children)
 		{
 			Enemy.Enemy.speed *= 2;
+			Enemy.Enemy.Sprite.tint = 0xffffff;
 		}
 	}
 }

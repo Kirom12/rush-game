@@ -7,7 +7,7 @@ class Laser extends Weapon
 	{
 		super(
 		[
-			Game.Main.add.weapon(10, Graphics.drawRect(12, 8, '#FFF'))
+			Game.Main.add.weapon(10, Graphics.drawRect(35, 6, '#FFF'))
 		], _Player, 'laser');
 
 		this.Weapon.trackSprite(_Player.Sprite, 0, 0, false);
@@ -16,7 +16,9 @@ class Laser extends Weapon
 
 		this.Weapon.bulletSpeed = 1000;
 		this.Weapon.fireRate = 650;
+
 		this.damage = 50;
+		this.recoil = 10;
 	};
 
 	update()

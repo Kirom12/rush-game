@@ -27,6 +27,8 @@ class MapScreenState
 			this.Buttons[i].anchor.setTo(0.5);
 			this.Buttons[i].alpha = 0;
 		}
+
+		Game.createIconsElements();
 	};
 
 	start(_map)

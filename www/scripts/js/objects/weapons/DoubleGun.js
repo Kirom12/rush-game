@@ -8,7 +8,7 @@ class DoubleGun extends Weapon
 		super(
 		[
 			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF')),
-			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#B00B55'))
+			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF'))
 		], _Player, 'gun');
 
 		this.Weapons[0].trackSprite(_Player.Sprite, 0, 0, false);
@@ -24,6 +24,7 @@ class DoubleGun extends Weapon
 		this.Weapons[1].fireAngle = 180;
 
 		this.damage = 25;
+		this.recoil = 0;
 	};
 
 	update()

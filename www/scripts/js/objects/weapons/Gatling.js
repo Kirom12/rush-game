@@ -7,8 +7,8 @@ class Gatling extends Weapon
 	{
 		super(
 		[
-			Game.Main.add.weapon(50, Graphics.drawRect(8, 8, '#FFF')),
-			Game.Main.add.weapon(50, Graphics.drawRect(8, 8, '#FFF'))
+			Game.Main.add.weapon(50, Graphics.drawCircle(6, '#FFF')),
+			Game.Main.add.weapon(50, Graphics.drawCircle(6, '#FFF'))
 		], _Player, 'gatling');
 
 		this.Weapons[0].trackSprite(_Player.Sprite, 0, -4, false);
@@ -22,6 +22,7 @@ class Gatling extends Weapon
 		}
 
 		this.damage = 25;
+		this.recoil = 6;
 	};
 
 	update()

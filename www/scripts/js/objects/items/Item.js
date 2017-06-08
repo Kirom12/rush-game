@@ -7,6 +7,16 @@ class Item
 	{
 		//let bmd = Graphics.drawRect(25, 25, 'brown');
 
+		this.Particles = Game.Main.add.emitter(_x, _y, 100);
+
+		this.Particles.makeParticles(Graphics.drawRect(4, 4, '#02ff4a'));
+		this.Particles.width = 0;
+		this.Particles.minParticleScale = 1;
+		this.Particles.maxParticleScale = 1.5;
+		this.Particles.gravity.set(0, -500);
+
+		this.Particles.start(false, 200, 5);
+
 		this.Sprite = Game.Main.add.sprite(_x, _y, 'crate');
 		Game.Main.physics.enable(this.Sprite, Phaser.Physics.ARCADE);
 
@@ -30,10 +40,14 @@ class Item
 		this.takable = false;
 
 		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collide_ground);
+
+		this.Particles.x = this.Sprite.position.x;
+		this.Particles.y = this.Sprite.position.y-15;
 	};
 
 	destroy()
 	{
-		this.Sprite.kill();
+		this.Sprite.destroy();
+		this.Particles.destroy()
 	};
 }

@@ -6,7 +6,7 @@ class Basic extends Enemy
 	constructor(_x, _y, _initDirection, _Spawner)
 	{
 		super(250, 30, 30, _x, _y, _initDirection, _Spawner, 'basic-monster');
-
+		
 		this.life = 50;
 		this.score = 10;
 

@@ -13,7 +13,7 @@ class Spawner
 		this.betweenSpawnTime = Phaser.Timer.SECOND * 4;
 
 		//Create spawers
-		let bmd = Graphics.drawRect(10, 10, 'white');
+		let bmd = Graphics.drawRect(10, 10, '#FFF');
 		this.Sprite = Game.Main.add.sprite(this.x, this.y, bmd);
 
 		this.Sprite.anchor.setTo(0.5);
@@ -33,17 +33,28 @@ class Spawner
 		{
 			let rand = Math.random().toFixed(2);
 
-			if (rand < Spawner.SpawnProbability.basic.proba)
+			switch (Spawner.styleEffect)
 			{
-				new Basic(this.x, this.y, this.direction, this);
-			}
-			else if (rand < Spawner.SpawnProbability.fatty.proba)
-			{
-				new Fatty(this.x, this.y, this.direction, this);
-			}
-			else
-			{
-				new Runner(this.x, this.y, this.direction, this);
+				case 'full-runner':
+						new Runner(this.x, this.y, this.direction, this);
+					break;
+				case 'full-fatty':
+						new Fatty(this.x, this.y, this.direction, this);
+						new Fatty(this.x, this.y, this.direction, this);
+					break;
+				default:
+					if (rand < Spawner.SpawnProbability.basic.proba)
+					{
+						new Basic(this.x, this.y, this.direction, this);
+					}
+					else if (rand < Spawner.SpawnProbability.fatty.proba)
+					{
+						new Fatty(this.x, this.y, this.direction, this);
+					}
+					else
+					{
+						new Runner(this.x, this.y, this.direction, this);
+					}
 			}
 			
 			Spawner.enemiesCount++;
@@ -71,10 +82,9 @@ class Spawner
 		};
 
 		Spawner.inLoopEvent = false;
-
 		Spawner.enemiesCount = 0;
-
 		Spawner.currentTrouble = null;
+		Spawner.styleEffect = null;
 
 		Spawner.setNewWave();
 	};

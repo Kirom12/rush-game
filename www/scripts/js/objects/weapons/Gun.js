@@ -14,7 +14,9 @@ class Gun extends Weapon
 
 		this.Weapon.bulletSpeed = 800;
 		this.Weapon.fireRate = 350;
+
 		this.damage = 25;
+		this.recoil = 8;
 	};
 
 	update()

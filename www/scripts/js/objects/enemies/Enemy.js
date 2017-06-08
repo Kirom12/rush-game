@@ -45,16 +45,24 @@ class Enemy
 		Map.EnemiesGroup.add(this.Sprite);
 		Map.EnemiesGroup.children[Map.EnemiesGroup.children.indexOf(this.Sprite)].Enemy = this;
 
-		if (Spawner.currentTrouble)
+		switch (Spawner.currentTrouble)
 		{
-			switch (Spawner.currentTrouble)
-			{
-				case 'slow':
-						this.speed /= 2;
-					break;
-				default:
-			}
+			case 'slow':
+					this.speed /= 2;
+					this.Sprite.tint = 0x7dd9f2;
+				break;
+			default:
 		}
+
+		switch (Spawner.styleEffect)
+		{
+			case 'fat-monster':
+					this.Sprite.scale.setTo(1.5);
+					this.life *= 1.5;
+				break;
+			default:
+		}
+
 	};
 
 	hit(_damage, _Player)
@@ -150,7 +158,7 @@ class Enemy
 		if (this.speed > 0)
 		{
 			this.Sprite.animations.play('right');
-		} 
+		}
 		else if (this.speed < 0)
 		{
 			this.Sprite.animations.play('left');
