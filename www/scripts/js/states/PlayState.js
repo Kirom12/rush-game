@@ -62,43 +62,16 @@ class PlayState
 
 		Game.mainScore = 0;
 
+		this.createPlayers();
+		
 		Map.construct();
 
 		Map.create();
 
-		Game.PlayersGroup = Game.Main.add.group();
-		Game.PlayersGroup.Players = [];
-
-
-		new Player(600, 600, 0, 'Player 1', '#70baeb',
+		for (let Player of Game.PlayersGroup.children)
 		{
-			up : Game.Main.input.keyboard.addKey(38),
-			down : Game.Main.input.keyboard.addKey(40),
-			right : Game.Main.input.keyboard.addKey(39),
-			left : Game.Main.input.keyboard.addKey(37),
-			fire : Game.Main.input.keyboard.addKey(191),
-			slow : Game.Main.input.keyboard.addKey(Phaser.Keyboard.K),
-			weapon : Game.Main.input.keyboard.addKey(Phaser.Keyboard.L),
-			other : Game.Main.input.keyboard.addKey(Phaser.Keyboard.M)
-		});
-
-		if (Game.multiplayer) 
-		{
-			new Player(650, 600, 1, 'Player 2','#50ed62',
-			{
-				up : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Z),
-				down : Game.Main.input.keyboard.addKey(Phaser.Keyboard.S),
-				right : Game.Main.input.keyboard.addKey(Phaser.Keyboard.D),
-				left : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Q),
-				fire : Game.Main.input.keyboard.addKey(16),
-				slow : Game.Main.input.keyboard.addKey(49),
-				weapon : Game.Main.input.keyboard.addKey(50),
-				other : Game.Main.input.keyboard.addKey(51)
-			});	
+			Player.Player.setText();
 		}
-
-
-		Game.nbPlayers = Game.PlayersGroup.children.length;
 
 		//Text
 		Game.Text.MainScore = Game.Main.add.text(Game.MainData.width/2, 30, Game.mainScore, Game.Text.Style.MainScore);
@@ -110,6 +83,49 @@ class PlayState
 		Game.Musics.Main.Fx.play('', 0, Game.Volume.music*Game.Musics.Main.volume);
 
 		Game.createIconsElements();
+	};
+
+	createPlayers()
+	{
+		Game.PlayersGroup = Game.Main.add.group();
+		Game.PlayersGroup.Players = [];
+
+		Game.Main.input.gamepad.start();
+
+		new Player(600, 600, 0, 'Player 1', '#70baeb',
+		{
+			up : Game.Main.input.keyboard.addKey(38),
+			down : Game.Main.input.keyboard.addKey(40),
+			right : Game.Main.input.keyboard.addKey(39),
+			left : Game.Main.input.keyboard.addKey(37),
+			fire : Game.Main.input.keyboard.addKey(191),
+			slow : Game.Main.input.keyboard.addKey(Phaser.Keyboard.K)
+		}, Game.Main.input.gamepad.pad1);
+
+		if (Game.nbPlayers > 1)
+		{
+			new Player(650, 600, 1, 'Player 2','#50ed62',
+			{
+				up : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Z),
+				down : Game.Main.input.keyboard.addKey(Phaser.Keyboard.S),
+				right : Game.Main.input.keyboard.addKey(Phaser.Keyboard.D),
+				left : Game.Main.input.keyboard.addKey(Phaser.Keyboard.Q),
+				fire : Game.Main.input.keyboard.addKey(16),
+				slow : Game.Main.input.keyboard.addKey(49)
+			}, Game.Main.input.gamepad.pad2);	
+		}
+
+		if (Game.nbPlayers > 2)
+		{
+			new Player(700, 600, 2, 'Player 3','#e380f7',
+			null, Game.Main.input.gamepad.pad3);
+		}
+
+		if (Game.nbPlayers > 3)
+		{
+			new Player(550, 600, 3, 'Player 4','#fff954',
+			null, Game.Main.input.gamepad.pad4);	
+		}
 	};
 
 	update()

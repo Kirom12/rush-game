@@ -23,6 +23,12 @@ class Gatling extends Weapon
 
 		this.damage = 25;
 		this.recoil = 6;
+
+		this.Camera = 
+		{
+			strength : 0.003,
+			time : 200
+		}
 	};
 
 	update()

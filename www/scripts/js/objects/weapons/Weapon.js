@@ -52,6 +52,12 @@ class Weapon
 
 		Particles.configure(this.Particles.Fire, Graphics.drawRect(4, 4, '#FFF'), 1, 1.5, null, 20);
 
+		this.Camera = 
+		{
+			strength : 0.001,
+			time : 200
+		}
+
 		Game.Main.world.bringToTop(Game.PlayersGroup);
 	};
 
@@ -129,6 +135,8 @@ class Weapon
 			this.Sound.time = Date.now();
 			this.Sound.fx.play();
 
+			Game.Main.camera.shake(this.Camera.strength, this.Camera.time);
+
 			if (this.Player.orientation === 'W')
 			{
 				this.Player.Sprite.position.x += this.recoil;
@@ -140,10 +148,5 @@ class Weapon
 				Particles.start(this.Particles.Fire ,this.Player.Sprite.position.x+40, this.Player.Sprite.position.y, true, 100, null, 4);
 			}
 		}
-	};
-
-	soundStopped()
-	{
-		
 	};
 }

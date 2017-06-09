@@ -27,10 +27,10 @@ class Game
 
 		Game.Debug =
 		{
-			god : true,
-			mousePosition : false,
+			god : false,
+			mousePosition : true,
 			skillGod : false,
-			startNow : true
+			startNow : false
 		}
 		
 		Game.Text = {};
@@ -105,7 +105,7 @@ class Game
 			Mana :
 			{
 				width: 100,
-				height: 10,
+				height: 8,
 				x: 0,
 				y: 0,
 				bg: {
@@ -119,7 +119,10 @@ class Game
 			}
 		}
 
-		Game.multiplayer = false;
+		Game.competitive = false;
+
+		Game.nbPlayers = 1;
+
 		Game.currentMap = 'map1';
 
 		Game.Volume =
@@ -162,6 +165,7 @@ class Game
 		//Backgrounds
 		Game.Main.load.image('title-screen', 'assets/imgs/title-screen.jpg');
 		Game.Main.load.image('map-screen', 'assets/imgs/map-screen.jpg');
+		Game.Main.load.image('competitive-screen', 'assets/imgs/competitive-screen.jpg');
 
 		//Icons
 		Game.Main.load.image('icon-full-screen', 'assets/icons/full-screen.png');
@@ -196,6 +200,7 @@ class Game
 		Game.Main.state.add('play', PlayState);
 		Game.Main.state.add('title-screen', TitleScreenState);
 		Game.Main.state.add('map-screen', MapScreenState);
+		Game.Main.state.add('competitive-screen', CompetitiveScreenState);
 
 		if (Game.Debug.startNow)
 		{

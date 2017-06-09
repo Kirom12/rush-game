@@ -27,6 +27,12 @@ class Shotgun extends Weapon
 
 		this.damage = 50;
 		this.recoil = 15;
+
+		this.Camera = 
+		{
+			strength : 0.003,
+			time : 200
+		}
 	};
 
 	update()

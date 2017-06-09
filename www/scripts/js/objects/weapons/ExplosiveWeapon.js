@@ -59,6 +59,8 @@ class ExplosiveWeapon extends Weapon
 	{
 		Game.Sounds.Explosion.play();
 
+		Game.Main.camera.shake(0.003, 200);
+
 		this.ExplosionSprite.animations.play('explode');
 		this.ExplosionSprite.position.x = _x;
 		this.ExplosionSprite.position.y = _y;

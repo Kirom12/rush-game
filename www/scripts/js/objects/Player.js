@@ -3,7 +3,7 @@
  * */
 class Player
 {
-	constructor(_x = 50, _y = 50, _id = 0, _name = 'Player 1', _color = 'green', _Buttons, _scale = 1)
+	constructor(_x = 50, _y = 50, _id = 0, _name = 'Player 1', _color = 'green', _Buttons = null, _Pad = null, _scale = 1)
 	{
 		this.x = _x;
 		this.y = _y;
@@ -45,6 +45,8 @@ class Player
 		}
 
 		this.Buttons = _Buttons;
+
+		this.Pad = _Pad;
 		
 		this.Jump = {
 			speed : 520,
@@ -59,11 +61,15 @@ class Player
 
 		this.getNewItem = true;
 
-		this.maxScore = 600;
+		this.maxScore = 300;
 		this.score = 0;
+		this.competitiveScore = 0;
+
 		this.mana = 0;
 
 		this.orientation = 'E';
+
+		this.color = _color;
 
 		this.Sprite.tint = '0x'+_color.substring(1);
 
@@ -76,30 +82,40 @@ class Player
 		//Add player to the group
 		Game.PlayersGroup.add(this.Sprite);
 		Game.PlayersGroup.children[Game.PlayersGroup.children.indexOf(this.Sprite)].Player = this;
+	};
 
-		Game.Text.Style.PlayerScore.fill = _color;
-
+	setText()
+	{
+		Game.Text.Style.PlayerScore.fill = this.color;
+		
 		//Text
 		this.Texts =
 		{
-			Score : Game.Main.add.text((Game.MainData.width/3)*(this.id+1), 18, this.name + ' - ' +this.score, Game.Text.Style.PlayerScore),
-			ManaText : Game.Main.add.text((Game.MainData.width/3)*(this.id+1)-80, 35, 'Magic', Game.Text.Style.PlayerManaText),
-			ManaValue : Game.Main.add.text((Game.MainData.width/3)*(this.id+1)+60, 25, this.mana + '/' + this.maxScore, Game.Text.Style.PlayerManaValue),
-			Skills : Game.Main.add.text((Game.MainData.width/3)*(this.id+1), 55, 'Slow (' + String.fromCharCode(this.Buttons.slow.keyCode) + ')(300) Weapon(' + String.fromCharCode(this.Buttons.weapon.keyCode) + ')(400) Other(' + String.fromCharCode(this.Buttons.other.keyCode) + ')(?)', Game.Text.Style.Skills),
-			PlayerStatus : Game.Main.add.text(0,0, '', Game.Text.Style.PlayerStatus)
+			Score : Game.Main.add.text((Game.MainData.width/4)*(this.id)+160, 18, this.name + ' - ' +this.score, Game.Text.Style.PlayerScore),
+			//ManaText : Game.Main.add.text((Game.MainData.width/3)*(this.id+1)-80, 35, 'Magic', Game.Text.Style.PlayerManaText),
+			//ManaValue : Game.Main.add.text((Game.MainData.width/3)*(this.id+1)+60, 25, this.mana + '/' + this.maxScore, Game.Text.Style.PlayerManaValue),
+			Skills : Game.Main.add.text((Game.MainData.width/4)*(this.id)+160, 55, 'Press K for slow', Game.Text.Style.Skills),
+			PlayerStatus : Game.Main.add.text(0,0, '', Game.Text.Style.PlayerStatus),
+			CompetitiveScore : Game.Main.add.text(((Game.MainData.width/4)*(this.id)+230), 35, this.competitiveScore, Game.Text.Style.MainScore)
 		};
 
 		this.Texts.Score.anchor.set(0.5);
-		this.Texts.ManaText.anchor.set(0.5);
+		//this.Texts.ManaText.anchor.set(0.5);
 		this.Texts.Skills.anchor.set(0.5);
 		this.Texts.PlayerStatus.anchor.set(0.5);
 		//this.Texts.ManaValue.anchor.set(0.5);
+		this.Texts.CompetitiveScore.anchor.set(0.5);
 
 		this.Texts.PlayerStatus.alpha = 0;
 
+		if (!Game.competitive)
+		{
+			this.Texts.CompetitiveScore.alpha = 0;
+		}
+
 		//Bar
 		this.ManaBar = new HealthBar(Game.Main, Game.BarConfig.Mana);
-		this.ManaBar.setPosition((Game.MainData.width/3)*(this.id+1), 33);
+		this.ManaBar.setPosition((Game.MainData.width/4)*(this.id)+160, 33);
 
 		this.ManaBar.setPercent((this.mana/this.maxScore)*100);
 	};
@@ -171,14 +187,14 @@ class Player
 		this.Sprite.body.velocity.x = 0;
 		
 		//MOVEMENTS
-		if (this.Buttons.left.isDown)
+		if (this.leftPress())
 		{
 			this.Sprite.animations.play('left');
 			this.Sprite.body.velocity.x -= this.speed;
 			this.orientation = 'W';
 			this.Weapon.setOrientation(this.orientation);
 		}
-		else if (this.Buttons.right.isDown)
+		else if (this.rightPress())
 		{
 			this.Sprite.animations.play('right');
 			this.Sprite.body.velocity.x += this.speed;
@@ -191,18 +207,18 @@ class Player
 		}
 
 		//SKILLS
-		if (this.Buttons.slow.isDown)
+		if (this.slowPress())
 		{
 			this.Skills.Slow.activate(this);
 		}
 
-		if (this.Buttons.weapon.isDown)
-		{
-			this.Skills.WeaponChange.activate(this);
-		}
+		// if (this.Buttons.weapon.isDown)
+		// {
+		// 	this.Skills.WeaponChange.activate(this);
+		// }
 
 		//FIRE
-		if (this.Buttons.fire.isDown)
+		if (this.firePress())
 		{
 			this.Weapon.fire();
 		}
@@ -226,7 +242,7 @@ class Player
 		// 	this.Jump.holdTimer = 0;
 		// }
 
-		if (this.Buttons.up.isDown && this.Sprite.body.onFloor())
+		if (this.upPress() && this.Sprite.body.onFloor())
 		{
 			this.Sprite.body.velocity.y = -this.Jump.speed;
 		}
@@ -237,11 +253,89 @@ class Player
 		}
 	};
 
+	leftPress()
+	{
+
+		if (this.Buttons && this.Buttons.left.isDown)
+		{
+			return true;
+		}
+
+		if (this.Pad && (this.Pad.isDown(Phaser.Gamepad.XBOX360_DPAD_LEFT) || this.Pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) < -0.1))
+		{
+			return true;
+		}
+
+		return false;
+	};
+
+	rightPress()
+	{
+		if (this.Buttons && this.Buttons.right.isDown)
+		{
+			return true;
+		}
+
+		if (this.Pad && (this.Pad.isDown(Phaser.Gamepad.XBOX360_DPAD_RIGHT) || this.Pad.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) > 0.1))
+		{
+			return true;
+		}
+
+		return false;
+	};
+
+	firePress()
+	{
+		if (this.Buttons && this.Buttons.fire.isDown)
+		{
+			return true;
+		}
+
+		if (this.Pad && this.Pad.isDown(Phaser.Gamepad.XBOX360_X))
+		{
+			return true;
+		}
+
+		return false;
+	};
+
+	slowPress()
+	{
+		if (this.Buttons && this.Buttons.slow.isDown)
+		{
+			return true;
+		}
+
+		if (this.Pad && this.Pad.justPressed(Phaser.Gamepad.XBOX360_Y))
+		{
+			return true;
+		}
+
+		return false;
+	};
+
+	upPress()
+	{
+		if (this.Buttons && this.Buttons.up.isDown)
+		{
+			return true;
+		}
+
+		if (this.Pad && this.Pad.justPressed(Phaser.Gamepad.XBOX360_A))
+		{
+			return true;
+		}
+
+		return false;
+	};
+
 	GUI()
 	{
 		this.Texts.Score.setText(this.name + ' - ' +this.score);
 		this.ManaBar.setPercent((this.mana/this.maxScore)*100);
-		this.Texts.ManaValue.setText(this.mana + '/' + this.maxScore);
+		//this.Texts.ManaValue.setText(this.mana + '/' + this.maxScore);
+
+		this.Texts.CompetitiveScore.setText(this.competitiveScore);
 	};
 
 	increaseScore(_points)

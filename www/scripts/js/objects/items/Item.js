@@ -3,13 +3,15 @@
  * */
 class Item
 {
-	constructor(_x, _y)
+	constructor(_x, _y, _playerId = 50)
 	{
 		//let bmd = Graphics.drawRect(25, 25, 'brown');
 
 		this.Particles = Game.Main.add.emitter(_x, _y, 100);
 
-		this.Particles.makeParticles(Graphics.drawRect(4, 4, '#02ff4a'));
+		let particlesColor = (_playerId != 50)? Game.PlayersGroup.children[_playerId].Player.color : '#02ff4a';
+
+		this.Particles.makeParticles(Graphics.drawRect(4, 4, particlesColor));
 		this.Particles.width = 0;
 		this.Particles.minParticleScale = 1;
 		this.Particles.maxParticleScale = 1.5;
@@ -26,6 +28,11 @@ class Item
 		this.Sprite.body.bounce.x = 0;
 		this.Sprite.body.maxVelocity = 500;
 		this.Sprite.body.gravity.y = 1000;
+
+		if (_playerId != 50)
+		{
+			this.Sprite.tint = '0x'+Game.PlayersGroup.children[_playerId].Player.color.substring(1);
+		}
 
 		this.ContentWeaponId = Random.rangeInt(0, 7, true);
 
@@ -47,7 +54,7 @@ class Item
 
 	destroy()
 	{
-		this.Sprite.destroy();
 		this.Particles.destroy()
+		this.Sprite.destroy();
 	};
 }

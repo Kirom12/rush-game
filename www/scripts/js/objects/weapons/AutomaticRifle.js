@@ -18,6 +18,12 @@ class AutomaticRifle extends Weapon
 
 		this.damage = 20;
 		this.recoil = 6;
+
+		this.Camera = 
+		{
+			strength : 0.002,
+			time : 200
+		}
 	};
 
 	update()

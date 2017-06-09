@@ -85,6 +85,14 @@ class Map
 			{x : 620, y : 365+Map.marginTop}
 		];
 
+		for (let i = 1; i <= 10; i++)
+		{
+			for (let j = 2; j <= 7; j++)
+			{
+				Map.ItemsSpawners.push({x : })
+			}
+		}
+
 		//Styles
 		Map.StyleChangeData =
 		{
@@ -209,6 +217,8 @@ class Map
 
 		Map.Text.MapLifes = Game.Main.add.text(Map.CurrentMap.ExitPosition.x, Map.CurrentMap.ExitPosition.y-10, Map.mapLifes, Map.Text.Style.MapLifes);
 		Map.Text.MapLifes.anchor.set(0.5);
+
+		Game.Main.world.bringToTop(Game.PlayersGroup);
 	}
 
 	static changeStyle(_styleId, _lastStyleId)
