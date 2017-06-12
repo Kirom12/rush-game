@@ -7,7 +7,7 @@ class GrenadeLauncher extends ExplosiveWeapon
 	{
 		super(
 		[
-			Game.Main.add.weapon(10, Graphics.drawCircle(10, '#FFF'))
+			Game.Main.add.weapon(10, Graphics.drawStrokeCircle(10, 2, '#FCFF24', '#FFF'))
 		], _Player, 'grenade-launcher');
 
 		this.Weapon.trackSprite(_Player.Sprite, 0, 0, false);

@@ -31,7 +31,7 @@ class Weapon
 		{
 			w : 180,
 			e : 0
-		}
+		};
 
 		for (let Item of this.Weapons)
 		{
@@ -44,7 +44,7 @@ class Weapon
 			WallHit : Particles.create(0, 0, 4),
 			EnemyHit : Particles.create(0, 0, 4),
 			Fire : Particles.create(0, 0, 10)
-		}
+		};
 
 		Particles.configure(this.Particles.WallHit, Graphics.drawRect(4, 4, '#FFF'), 1, 1.5);
 
@@ -56,7 +56,7 @@ class Weapon
 		{
 			strength : 0.001,
 			time : 200
-		}
+		};
 
 		Game.Main.world.bringToTop(Game.PlayersGroup);
 	};
@@ -134,6 +134,7 @@ class Weapon
 		{
 			this.Sound.time = Date.now();
 			this.Sound.fx.play();
+			this.Sound.fx._sound.playbackRate.value = Random.rangeInt(8, 12, true)/10;
 
 			Game.Main.camera.shake(this.Camera.strength, this.Camera.time);
 

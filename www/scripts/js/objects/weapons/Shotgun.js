@@ -7,11 +7,11 @@ class Shotgun extends Weapon
 	{
 		super(
 		[
-			Game.Main.add.weapon(10, Graphics.drawRect(16, 6, '#FFF')),
-			Game.Main.add.weapon(10, Graphics.drawRect(16, 6, '#FFF')),
-			Game.Main.add.weapon(10, Graphics.drawRect(16, 6, '#FFF')),
-			Game.Main.add.weapon(10, Graphics.drawRect(16, 6, '#FFF')),
-			Game.Main.add.weapon(10, Graphics.drawRect(16, 6, '#FFF'))
+			Game.Main.add.weapon(10, Graphics.drawStrokeRect(20, 6, 2,'#FCFF24', '#FFF')),
+			Game.Main.add.weapon(10, Graphics.drawStrokeRect(20, 6, 2,'#FCFF24', '#FFF')),
+			Game.Main.add.weapon(10, Graphics.drawStrokeRect(20, 6, 2,'#FCFF24', '#FFF')),
+			Game.Main.add.weapon(10, Graphics.drawStrokeRect(20, 6, 2,'#FCFF24', '#FFF')),
+			Game.Main.add.weapon(10, Graphics.drawStrokeRect(20, 6, 2,'#FCFF24', '#FFF'))
 		], _Player, 'shotgun');
 
 		this.WeaponAngles = [2, 0, -2, -4, -6]

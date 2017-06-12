@@ -75,8 +75,8 @@ class Enemy
 		Game.Main.time.events.add(Phaser.Timer.SECOND * 0.2, function()
 		{
 			this.Sprite.tint = 0xffffff;
-			this.HitText.position.x = 0;
-			this.HitText.position.y = 0;
+			this.HitText.position.x = -50;
+			this.HitText.position.y = -50;
 		}, this);
 
 
@@ -116,7 +116,7 @@ class Enemy
 	{
 		Game.Sounds.Lose.play();
 
-		if (!Game.Debug.god)
+		if (!Game.Debug.god && Map.mapLifes > 0)
 		{
 			if (Map.mapLifes > 1)
 			{
@@ -124,6 +124,7 @@ class Enemy
 			}
 			else
 			{
+				Map.mapLifes = 0;
 				PlayState.gameOver();
 			}
 		}

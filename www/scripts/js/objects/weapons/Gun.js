@@ -7,7 +7,7 @@ class Gun extends Weapon
 	{
 		super(
 		[
-			Game.Main.add.weapon(10, Graphics.drawRect(8, 8, '#FFF'))
+			Game.Main.add.weapon(10, Graphics.drawStrokeRect(8, 8, 2, '#FCFF24','#FFF'))
 		], _Player, 'gun');
 
 		this.Weapon.trackSprite(_Player.Sprite, 0, 0, false);

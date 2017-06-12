@@ -54,7 +54,7 @@ class PlayState
 				Fx : Game.Main.add.audio('main', 0.8, true),
 				volume : 0.8
 			}
-		}
+		};
 
 		Game.Main.physics.startSystem(Phaser.Physics.ARCADE);
 		Game.Main.world.setBounds(0,0, Game.MainData.width, Game.MainData.height);
@@ -166,6 +166,10 @@ class PlayState
 		{
 			Player.Player.destroy();
 		}
+
+		let Screen = Game.Main.add.sprite(0, 0, Graphics.drawRect(Game.MainData.width, Game.MainData.height, "#000"));
+		Screen.alpha = 0.4;
+		Game.Main.add.tween(Screen).to( { alpha: 1 }, 5000, "Linear", true);
 
 		Game.Text.GameOver = Game.Main.add.text(Game.MainData.width/2, Game.MainData.height/2, "Game Over !", Game.Text.Style.GameOver);
 		Game.Text.GameOver.anchor.set(0.5);

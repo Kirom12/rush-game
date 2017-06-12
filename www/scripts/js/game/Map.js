@@ -70,26 +70,28 @@ class Map
 			}
 		};
 
-		Map.ItemsSpawners =
-		[
-			{x : 80, y : 150+Map.marginTop},
-			{x : Game.MainData.width-80, y : 150+Map.marginTop},
-			{x : 400, y : 250+Map.marginTop},
-			{x : Game.MainData.width-400, y : 250+Map.marginTop},
-			{x : 200, y : 470+Map.marginTop},
-			{x : Game.MainData.width-200, y : 470+Map.marginTop},
-			{x : 115, y : 730+Map.marginTop},
-			{x : Game.MainData.width-115, y : 730+Map.marginTop},
-			{x : 400, y : 610+Map.marginTop},
-			{x : Game.MainData.width-400, y : 610+Map.marginTop},
-			{x : 620, y : 365+Map.marginTop}
-		];
+		// Map.ItemsSpawners =
+		// [
+		// 	{x : 80, y : 150+Map.marginTop},
+		// 	{x : Game.MainData.width-80, y : 150+Map.marginTop},
+		// 	{x : 400, y : 250+Map.marginTop},
+		// 	{x : Game.MainData.width-400, y : 250+Map.marginTop},
+		// 	{x : 200, y : 470+Map.marginTop},
+		// 	{x : Game.MainData.width-200, y : 470+Map.marginTop},
+		// 	{x : 115, y : 730+Map.marginTop},
+		// 	{x : Game.MainData.width-115, y : 730+Map.marginTop},
+		// 	{x : 400, y : 610+Map.marginTop},
+		// 	{x : Game.MainData.width-400, y : 610+Map.marginTop},
+		// 	{x : 620, y : 365+Map.marginTop}
+		// ];
 
-		for (let i = 1; i <= 10; i++)
+		Map.ItemsSpawners = [];
+
+		for (let i = 1; i <= 11; i++)
 		{
-			for (let j = 2; j <= 7; j++)
+			for (let j = 3; j < 7; j++)
 			{
-				Map.ItemsSpawners.push({x : })
+				Map.ItemsSpawners.push({x : 110*i, y : Map.marginTop+(112*j)-56});
 			}
 		}
 
@@ -178,7 +180,13 @@ class Map
 	{
 		Log.print("create map");
 
-		Game.Main.stage.backgroundColor = "#4488a6";
+		Map.BackgroundRadient = Game.Main.add.tileSprite(0, 0, Game.MainData.width, Game.MainData.height, 'background');
+		Map.Background = Game.Main.add.sprite(0, 0, Graphics.drawRect(Game.MainData.width, Game.MainData.height, "#4488a6"));
+		Map.BackgroundRadient.alpha = 0.4;
+
+		Game.Main.world.sendToBack(Map.Background);
+
+		//Game.Main.stage.backgroundColor = "#4488a6";
 
 		Map.map = Game.Main.add.tilemap(Map.CurrentMap.name);
 
@@ -235,7 +243,18 @@ class Map
 		Map.StyleChangeData.changeEvery = Map.Styles[_styleId].duration;
 
 		//Change background
-		Game.Main.stage.backgroundColor = Map.Styles[_styleId].bgColor;
+		let NewBackground = Game.Main.add.sprite(0, 0, Graphics.drawRect(Game.MainData.width, Game.MainData.height, Map.Styles[_styleId].bgColor));
+		Game.Main.world.sendToBack(NewBackground);
+		Game.Main.world.sendToBack(Map.Background);
+		NewBackground.alpha = 0;
+
+		let Tween = Game.Main.add.tween(NewBackground).to( { alpha: 1 }, 1500, "Linear", true);
+		Tween.onComplete.add(function()
+		{
+			Map.Background.destroy();
+			Map.Background = NewBackground;	
+		}, this);
+		
 
 		//Change tileset
 		Map.map.addTilesetImage('world-sp-0', Map.Styles[_styleId].tileset);

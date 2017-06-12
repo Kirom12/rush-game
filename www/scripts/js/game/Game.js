@@ -28,7 +28,7 @@ class Game
 		Game.Debug =
 		{
 			god : false,
-			mousePosition : true,
+			mousePosition : false,
 			skillGod : false,
 			startNow : false
 		}
@@ -128,7 +128,7 @@ class Game
 		Game.Volume =
 		{
 			effects : 1,
-			music : 0
+			music : 0.5
 		}
 
 		Game.IconButtons = {};
@@ -148,6 +148,8 @@ class Game
 		Game.Main.load.image('world-sp-3', 'assets/tilesets/world-sp-3.png');
 		Game.Main.load.image('world-sp-4', 'assets/tilesets/world-sp-4.png');
 		Game.Main.load.image('gui', 'assets/tilesets/gui.png');
+
+		Game.Main.load.image('background', 'assets/imgs/background-v2.png');
 
 		//Characters
 		Game.Main.load.spritesheet('basic-monster', 'assets/characters/basic.png', 32, 32);

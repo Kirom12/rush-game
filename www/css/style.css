@@ -2,3 +2,7 @@ canvas {
 	display: block;
 	margin: 0 auto;
 }
+
+body {
+	background-color: #0F0F0F;
+}

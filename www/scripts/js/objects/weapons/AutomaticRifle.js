@@ -7,7 +7,7 @@ class AutomaticRifle extends Weapon
 	{
 		super(
 		[
-			Game.Main.add.weapon(20, Graphics.drawCircle(6, '#FFF'))
+			Game.Main.add.weapon(20, Graphics.drawStrokeCircle(6, 2,'#FCFF24', '#FFF'))
 		], _Player, 'automatic-rifle');
 
 		this.Weapon.trackSprite(_Player.Sprite, 0, 0, false);
