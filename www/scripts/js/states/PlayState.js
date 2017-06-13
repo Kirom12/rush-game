@@ -83,6 +83,13 @@ class PlayState
 		Game.Musics.Main.Fx.play('', 0, Game.Volume.music*Game.Musics.Main.volume);
 
 		Game.createIconsElements();
+
+		Game.DebugButtons =
+		{
+			God : Game.Main.input.keyboard.addKey(Phaser.Keyboard.G),
+			DeGod : Game.Main.input.keyboard.addKey(Phaser.Keyboard.H),
+			Pause : Game.Main.input.keyboard.addKey(Phaser.Keyboard.P)
+		}
 	};
 
 	createPlayers()
@@ -153,11 +160,44 @@ class PlayState
 		{
 			this.debug();
 		}
+
+		if (Game.Debug.buttons)
+		{
+			this.debugButtons();
+		}
 	};
 
 	debug()
 	{
 		Debug.getMousePosition();
+	};
+
+	debugButtons()
+	{
+		if (Game.DebugButtons.God.isDown && !Game.Debug.god)
+		{
+			console.log('GOD MODE ON');
+			Game.Debug.god = true;
+
+		}
+		if (Game.DebugButtons.DeGod.isDown && Game.Debug.god)
+		{
+			console.log('GOD MODE OFF');
+			Game.Debug.god = false;
+		}
+		// if (Game.DebugButtons.Pause.isDown)
+		// {
+		// 	if (Game.Debug.god)
+		// 	{
+		// 		console.log('PAUSE OFF');
+		// 		Game.Main.paused = false;
+		// 	}
+		// 	else 
+		// 	{
+		// 		console.log('PAUSE ON');
+		// 		Game.Main.paused = true;
+		// 	}
+		// }
 	};
 
 	static gameOver()
@@ -171,9 +211,23 @@ class PlayState
 		Screen.alpha = 0.4;
 		Game.Main.add.tween(Screen).to( { alpha: 1 }, 5000, "Linear", true);
 
-		Game.Text.GameOver = Game.Main.add.text(Game.MainData.width/2, Game.MainData.height/2, "Game Over !", Game.Text.Style.GameOver);
+		Game.Text.GameOver = Game.Main.add.text(Game.MainData.width/2, Game.MainData.height/2-20, "Game Over !", Game.Text.Style.GameOver);
 		Game.Text.GameOver.anchor.set(0.5);
-		Game.Text.MainScoreGM = Game.Main.add.text(Game.MainData.width/2, Game.MainData.height/2+40, "Score : " + Game.mainScore, Game.Text.Style.MainScore);
+		Game.Text.MainScoreGM = Game.Main.add.text(Game.MainData.width/2, Game.MainData.height/2+30, "Score : " + Game.mainScore, Game.Text.Style.MainScore);
 		Game.Text.MainScoreGM.anchor.set(0.5);
+
+		let Rect = Graphics.drawRect(250, 50, '#000');
+
+		Game.Text.Restart = Game.Main.add.text(Game.MainData.width/2, Game.MainData.height/2+80, "Restart", Game.Text.Style.Restart);
+		Game.Text.Restart.anchor.set(0.5);
+
+		this.RestartButton = Game.Main.add.button(Game.MainData.width/2, Game.MainData.height/2+80, Rect, function(){PlayState.restart();}, this, 2, 1, 0);
+		this.RestartButton.anchor.setTo(0.5);
+		this.RestartButton.alpha = 0;
+	};
+
+	static restart()
+	{
+		location.reload();
 	};
 }

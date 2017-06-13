@@ -5,6 +5,8 @@ class Cat
 {
 	constructor(_x, _y)
 	{
+		//LifeBar
+
 		this.Sprite = Game.Main.add.sprite(_x, _y, 'cat');
 		Game.Main.physics.enable(this.Sprite, Phaser.Physics.ARCADE);
 		this.Sprite.anchor.setTo(0.5);

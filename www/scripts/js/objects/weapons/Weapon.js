@@ -140,12 +140,18 @@ class Weapon
 
 			if (this.Player.orientation === 'W')
 			{
-				this.Player.Sprite.position.x += this.recoil;
+				if (this.Player.Sprite.position.x < Game.MainData.width-64)
+				{
+					this.Player.Sprite.position.x += this.recoil;
+				}
 				Particles.start(this.Particles.Fire ,this.Player.Sprite.position.x-40, this.Player.Sprite.position.y, true, 100, null, 4);
 			} 
 			else if (this.Player.orientation === 'E')
 			{
-				this.Player.Sprite.position.x -= this.recoil;
+				if (this.Player.Sprite.position.x > 64)
+				{
+					this.Player.Sprite.position.x -= this.recoil;
+				}
 				Particles.start(this.Particles.Fire ,this.Player.Sprite.position.x+40, this.Player.Sprite.position.y, true, 100, null, 4);
 			}
 		}

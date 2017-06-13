@@ -30,7 +30,8 @@ class Game
 			god : false,
 			mousePosition : false,
 			skillGod : false,
-			startNow : false
+			startNow : false,
+			buttons : true
 		}
 		
 		Game.Text = {};
@@ -96,6 +97,12 @@ class Game
 			{
 				font: "16px Arial",
 				fill: "#ff0044",
+				align: "center"
+			},
+			Restart :
+			{
+				font: "24px Arial",
+				fill: "white",
 				align: "center"
 			}
 		}

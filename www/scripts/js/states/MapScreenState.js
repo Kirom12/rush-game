@@ -17,7 +17,8 @@ class MapScreenState
 	{
 		Game.Main.add.sprite(0 , 0, 'map-screen');
 
-		let Rect = Graphics.drawRect(355, 227, '#000')
+		let Rect = Graphics.drawRect(355, 227, '#000');
+		let ExitRect = Graphics.drawRect(250, 50, '#000');
 
 		this.Buttons = [];
 
@@ -27,6 +28,10 @@ class MapScreenState
 			this.Buttons[i].anchor.setTo(0.5);
 			this.Buttons[i].alpha = 0;
 		}
+
+		this.ExitButton = Game.Main.add.button(Game.MainData.width/2, Game.MainData.height/2+195, ExitRect, function(){this.exit();}, this, 2, 1, 0);
+		this.ExitButton.anchor.setTo(0.5);
+		this.ExitButton.alpha = 0;
 
 		Game.createIconsElements();
 	};
@@ -40,7 +45,7 @@ class MapScreenState
 
 	exit()
 	{
-
+		Game.Main.state.start('title-screen');
 	};
 
 	update()
