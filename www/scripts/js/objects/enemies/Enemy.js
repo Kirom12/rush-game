@@ -100,11 +100,11 @@ class Enemy
 
 	update()
 	{
+		this.move();
+		
 		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collide_ground);
 		Game.Main.physics.arcade.collide(this.Sprite, Map.map.Layers.collide_wall, this.collideEnemyWall, null, this);
 		Game.Main.physics.arcade.overlap(this.Sprite, Map.Cat.Sprite, this.collideEnemyGate, null, this);
-
-		this.move();
 	};
 
 	collideEnemyWall(_Sprite)
@@ -143,7 +143,8 @@ class Enemy
 
 		//Kill sprite and remove from enemies array
 		Map.EnemiesGroup.remove(this.Sprite);
-		this.Sprite.kill();
+		this.Sprite.destroy();
+
 		//let index = Map.Enemies.indexOf(this);
 		//Map.Enemies.splice(index, 1);
 
